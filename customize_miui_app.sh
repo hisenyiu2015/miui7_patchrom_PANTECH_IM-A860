@@ -37,3 +37,8 @@ if [ $1 = "miuisystem" ];then
 	applyPatch $1 $2
 	cp $1/ef51s.xml $2/assets/device_features/
 fi
+
+if [ $1 = "TeleService" ];then
+	applyPatch $1 $2
+	$XMLMERGYTOOL $1/res/values $2/res/values
+fi
