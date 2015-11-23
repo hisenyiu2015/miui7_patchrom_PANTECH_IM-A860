@@ -1,0 +1,47 @@
+From c84c72b50d45a9bab16d189336ca17e1a9b02678 Mon Sep 17 00:00:00 2001
+From: X-s <imxs1107@gmail.com>
+Date: Sat, 10 Oct 2015 20:44:12 +0800
+Subject: [PATCH] Open LTE
+
+---
+ TeleService/smali/com/android/phone/PhoneGlobals.smali         |  2 +-
+ .../phone/settings/PreferredNetworkTypeListPreference.smali    | 10 +++++-----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+--- a/TeleService/smali/com/android/phone/PhoneGlobals.smali
++++ b/TeleService/smali/com/android/phone/PhoneGlobals.smali
+@@ -2789,7 +2789,7 @@
+     :cond_9
+     sget-boolean v3, Lmiui/os/Build;->IS_MIFIVE:Z
+ 
+-    if-eqz v3, :cond_c
++    #if-eqz v3, :cond_c
+ 
+     move v2, v0
+ 
+--- a/TeleService/smali/com/android/phone/settings/PreferredNetworkTypeListPreference.smali
++++ b/TeleService/smali/com/android/phone/settings/PreferredNetworkTypeListPreference.smali
+@@ -749,15 +749,15 @@
+ 
+     sget-boolean v3, Lmiui/os/Build;->IS_MIFIVE:Z
+ 
+-    if-nez v3, :cond_8
++    #if-nez v3, :cond_8
+ 
+-    sget-boolean v3, Lmiui/os/Build;->IS_HONGMI_TWOX_CM:Z
++    #sget-boolean v3, Lmiui/os/Build;->IS_HONGMI_TWOX_CM:Z
+ 
+-    if-nez v3, :cond_8
++    #if-nez v3, :cond_8
+ 
+-    sget-boolean v3, Lmiui/os/Build;->IS_HONGMI_THREEX_CM:Z
++    #sget-boolean v3, Lmiui/os/Build;->IS_HONGMI_THREEX_CM:Z
+ 
+-    if-eqz v3, :cond_a
++    #if-eqz v3, :cond_a
+ 
+     :cond_8
+     const v3, 0x7f050026
+-- 
+1.9.1
+
