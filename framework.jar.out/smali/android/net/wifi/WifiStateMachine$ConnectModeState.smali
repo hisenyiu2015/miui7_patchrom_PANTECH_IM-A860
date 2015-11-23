@@ -1537,7 +1537,11 @@
 
     const v22, 0x25001
 
-    invoke-virtual/range {v21 .. v22}, Landroid/net/wifi/SupplicantStateTracker;->sendMessage(I)V
+    move-object/from16 v0, v21
+
+    move/from16 v1, v22
+
+    invoke-virtual {v0, v1, v10}, Landroid/net/wifi/SupplicantStateTracker;->sendMessage(II)V
 
     .line 5267
     move-object/from16 v0, p0

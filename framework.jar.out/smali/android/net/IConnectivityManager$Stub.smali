@@ -148,9 +148,9 @@
 
 .field static final TRANSACTION_updateLockdownVpn:I = 0x30
 
-.field static final TRANSACTION_startUsingNetworkFeatureMSim:I = 0x3c
+.field static final TRANSACTION_startUsingNetworkFeatureMSim:I = 0x3e
 
-.field static final TRANSACTION_stopUsingNetworkFeatureMSim:I = 0x3d
+.field static final TRANSACTION_stopUsingNetworkFeatureMSim:I = 0x3f
 
 # direct methods
 .method public constructor <init>()V
@@ -2480,6 +2480,8 @@
         0x3b -> :sswitch_3b
         0x3c -> :sswitch_3c
         0x3d -> :sswitch_3d
+        0x3e -> :sswitch_miui_0
+        0x3f -> :sswitch_miui_1
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method

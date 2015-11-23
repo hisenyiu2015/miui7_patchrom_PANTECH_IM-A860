@@ -199,17 +199,27 @@
 
 .field private mGlowPaddingRight:I
 
+.field mInertia:I
+
 .field private mIsChildViewEnabled:Z
 
 .field private mIsPantechTheme:Z
 
 .field final mIsScrap:[Z
 
+.field mIsShortList:Z
+
+.field mIsTouching:Z
+
 .field private mLastAccessibilityScrollEventFromIndex:I
 
 .field private mLastAccessibilityScrollEventToIndex:I
 
 .field private mLastHandledItemCount:I
+
+.field mLastPivotX:F
+
+.field mLastPivotY:F
 
 .field private mLastPositionDistanceGuess:I
 
@@ -354,7 +364,7 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 7
+    .locals 8
     .param p1, "context"    # Landroid/content/Context;
 
     .prologue
@@ -444,15 +454,15 @@
 
     iput-boolean v4, p0, Landroid/widget/AbsListView;->mIsPantechTheme:Z
 
-    iput v2, p0, Landroid/widget/AbsListView;->mDownMotionY:I
+    iput v4, p0, Landroid/widget/AbsListView;->mDownMotionY:I
 
-    iput v2, p0, Landroid/widget/AbsListView;->mInertia:I
+    iput v4, p0, Landroid/widget/AbsListView;->mInertia:I
 
-    iput-boolean v2, p0, Landroid/widget/AbsListView;->mIsTouching:Z
+    iput-boolean v4, p0, Landroid/widget/AbsListView;->mIsTouching:Z
 
-    const/high16 v6, 0x3f800000    # 1.0f
+    const/high16 v7, 0x3f800000    # 1.0f
 
-    iput v6, p0, Landroid/widget/AbsListView;->mScaleY:F
+    iput v7, p0, Landroid/widget/AbsListView;->mScaleY:F
 
     invoke-direct {p0}, Landroid/widget/AbsListView;->initAbsListView()V
 
@@ -744,6 +754,24 @@
 
     iput v13, v0, Landroid/widget/AbsListView;->mDirection:I
 
+    const/4 v13, 0x0
+
+    move-object/from16 v0, p0
+
+    iput v13, v0, Landroid/widget/AbsListView;->mDownMotionY:I
+
+    const/4 v13, 0x0
+
+    move-object/from16 v0, p0
+
+    iput v13, v0, Landroid/widget/AbsListView;->mInertia:I
+
+    const/4 v13, 0x0
+
+    move-object/from16 v0, p0
+
+    iput-boolean v13, v0, Landroid/widget/AbsListView;->mIsTouching:Z
+
     .line 710
     const/4 v13, 0x1
 
@@ -757,6 +785,12 @@
     move-object/from16 v0, p0
 
     iput-boolean v13, v0, Landroid/widget/AbsListView;->mIsPantechTheme:Z
+
+    const/high16 v13, 0x3f800000    # 1.0f
+
+    move-object/from16 v0, p0
+
+    iput v13, v0, Landroid/widget/AbsListView;->mScaleY:F
 
     .line 810
     invoke-direct/range {p0 .. p0}, Landroid/widget/AbsListView;->initAbsListView()V
@@ -3212,13 +3246,13 @@
 
     iget-boolean v0, v0, Landroid/widget/AbsListView;->mIsTouching:Z
 
-    move/from16 v17, v0
+    move/from16 v18, v0
 
-    if-eqz v17, :cond_miui_0
+    if-eqz v18, :cond_miui_0
 
-    const/16 v17, 0x0
+    const/16 v18, 0x0
 
-    move/from16 v0, v17
+    move/from16 v0, v18
 
     move-object/from16 v1, p0
 
@@ -10973,6 +11007,16 @@
 
     .end local v1    # "child":Landroid/view/View;
     :cond_7
+    iget v6, p0, Landroid/widget/AbsListView;->mLastY:I
+
+    iget v8, p0, Landroid/widget/AbsListView;->mDownMotionY:I
+
+    sub-int/2addr v6, v8
+
+    sub-int v6, v5, v6
+
+    iput v6, p0, Landroid/widget/AbsListView;->mDownMotionY:I
+
     iput v5, p0, Landroid/widget/AbsListView;->mLastY:I
 
     invoke-virtual {p0}, Landroid/widget/AbsListView;->requestLayout()V

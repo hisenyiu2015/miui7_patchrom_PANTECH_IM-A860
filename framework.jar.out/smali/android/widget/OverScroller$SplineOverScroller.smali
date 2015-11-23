@@ -430,6 +430,10 @@
     .line 612
     iput-boolean v2, p0, Landroid/widget/OverScroller$SplineOverScroller;->mIsPerfBoostEnabled:Z
 
+    const/high16 v1, 0x3f800000    # 1.0f
+
+    iput v1, p0, Landroid/widget/OverScroller$SplineOverScroller;->mDecelerationScale:F
+
     .line 652
     const/4 v1, 0x1
 

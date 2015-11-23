@@ -7345,9 +7345,9 @@
     or-int/lit16 p4, p4, 0x100
 
     :cond_1
-    iget-object v1, p0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
+    iget-object v1, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
 
-    invoke-virtual {v1, p1, p4}, Landroid/view/VolumePanel;->postVolumeChanged(II)V
+    invoke-virtual {v1, p1, p4}, Lmiui/view/VolumePanel;->postVolumeChanged(II)V
 
     and-int/lit8 v1, p4, 0x20
 
@@ -11366,6 +11366,13 @@
 
     .line 1458
     :cond_2
+
+    iget-object v0, p0, Landroid/media/AudioService;->mContext:Landroid/content/Context;
+
+    invoke-static {v0, p1}, Lmiui/util/AudioManagerHelper;->getValidatedRingerMode(Landroid/content/Context;I)I
+
+    move-result p1
+    
     if-eqz p1, :cond_3
 
     if-ne p1, v2, :cond_4
@@ -11512,7 +11519,7 @@
 .end method
 
 .method public setStreamMute(IZLandroid/os/IBinder;Ljava/lang/String;)V
-    .locals 1
+    .locals 2
     .param p1, "streamType"    # I
     .param p2, "state"    # Z
     .param p3, "cb"    # Landroid/os/IBinder;

@@ -41,11 +41,14 @@
 
 # virtual methods
 .method public createFromParcel(Landroid/os/Parcel;)Landroid/net/wifi/ScanResult;
-    .locals 16
+    .locals 21
     .param p1, "in"    # Landroid/os/Parcel;
 
     .prologue
-    .line 297
+    const/16 v18, 0x0
+
+    const/16 v17, 0x1
+
     const/4 v2, 0x0
 
     .line 298
@@ -54,9 +57,9 @@
 
     move-result v1
 
-    const/4 v3, 0x1
+    move/from16 v0, v17
 
-    if-ne v1, v3, :cond_0
+    if-ne v1, v0, :cond_0
 
     .line 299
     sget-object v1, Landroid/net/wifi/WifiSsid;->CREATOR:Landroid/os/Parcelable$Creator;
@@ -123,9 +126,47 @@
 
     move-result-object v15
 
-    invoke-direct/range {v1 .. v15}, Landroid/net/wifi/ScanResult;-><init>(Landroid/net/wifi/WifiSsid;Ljava/lang/String;Ljava/lang/String;IIJIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual/range {p1 .. p1}, Landroid/os/Parcel;->readInt()I
+
+    move-result v16
+
+    move-object/from16 v20, v1
+
+    move/from16 v0, v16
+
+    move/from16 v1, v17
+
+    if-ne v0, v1, :cond_1
+
+    move/from16 v16, v17
+
+    :goto_0
+    invoke-virtual/range {p1 .. p1}, Landroid/os/Parcel;->readInt()I
+
+    move-result v19
+
+    move/from16 v0, v19
+
+    move/from16 v1, v17
+
+    if-ne v0, v1, :cond_2
+
+    :goto_1
+    move-object/from16 v1, v20
+
+    invoke-direct/range {v1 .. v17}, Landroid/net/wifi/ScanResult;-><init>(Landroid/net/wifi/WifiSsid;Ljava/lang/String;Ljava/lang/String;IIJIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZ)V
 
     return-object v1
+
+    :cond_1
+    move/from16 v16, v18
+
+    goto :goto_0
+
+    :cond_2
+    move/from16 v17, v18
+
+    goto :goto_1
 .end method
 
 .method public bridge synthetic createFromParcel(Landroid/os/Parcel;)Ljava/lang/Object;

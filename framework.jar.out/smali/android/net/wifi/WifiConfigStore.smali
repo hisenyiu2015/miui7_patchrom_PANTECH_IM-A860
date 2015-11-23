@@ -203,6 +203,24 @@
     return-void
 .end method
 
+.method constructor <init>(Landroid/content/Context;Landroid/net/wifi/WifiNative;Landroid/os/Handler;)V
+    .locals 1
+    .param p1, "c"    # Landroid/content/Context;
+    .param p2, "wn"    # Landroid/net/wifi/WifiNative;
+    .param p3, "handler"    # Landroid/os/Handler;
+
+    .prologue
+    invoke-direct {p0, p1, p2}, Landroid/net/wifi/WifiConfigStore;-><init>(Landroid/content/Context;Landroid/net/wifi/WifiNative;)V
+
+    new-instance v0, Landroid/net/wifi/WifiAutoConnController;
+
+    invoke-direct {v0, p0, p1, p3}, Landroid/net/wifi/WifiAutoConnController;-><init>(Landroid/net/wifi/WifiConfigStore;Landroid/content/Context;Landroid/os/Handler;)V
+
+    iput-object v0, p0, Landroid/net/wifi/WifiConfigStore;->mWifiAutoConnController:Landroid/net/wifi/WifiAutoConnController;
+
+    return-void
+.end method
+
 .method static synthetic access$000(Landroid/net/wifi/WifiConfigStore;Ljava/lang/String;)V
     .locals 0
     .param p0, "x0"    # Landroid/net/wifi/WifiConfigStore;
