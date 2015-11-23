@@ -1050,7 +1050,7 @@
 
     .end local v2    # "_arg0":I
     .end local v3    # "_arg1":I
-    :sswitch_17
+    :sswitch_1a
     const-string v1, "com.android.internal.statusbar.IStatusBarService"
 
     move-object/from16 v0, p2
@@ -1132,6 +1132,7 @@
         0x17 -> :sswitch_17
         0x18 -> :sswitch_18
         0x19 -> :sswitch_19
+        0x1a -> :sswitch_1a
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method

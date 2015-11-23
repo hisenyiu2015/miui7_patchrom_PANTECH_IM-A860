@@ -621,7 +621,7 @@
 
     .end local v0    # "_arg0":I
     .end local v1    # "_arg1":I
-    :sswitch_12
+    :sswitch_15
     const-string v4, "com.android.internal.statusbar.IStatusBar"
 
     invoke-virtual {p2, v4}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
@@ -685,6 +685,7 @@
         0x12 -> :sswitch_12
         0x13 -> :sswitch_13
         0x14 -> :sswitch_14
+	0x15 -> :sswitch_15
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method
