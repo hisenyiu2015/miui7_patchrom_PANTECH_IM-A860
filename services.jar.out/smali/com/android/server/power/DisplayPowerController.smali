@@ -2812,10 +2812,8 @@
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/hardware/SensorManager;->registerListener(Landroid/hardware/SensorEventListener;Landroid/hardware/Sensor;ILandroid/os/Handler;)Z
 
-    :goto_0
-    invoke-static {p1}, Lcom/android/server/power/ButtonLightController;->setScreenOn(Z)V
-
     :cond_0
+    :goto_0
     return-void
 
     :cond_1
@@ -2880,9 +2878,11 @@
 
     invoke-virtual {v0}, Lcom/android/server/power/Notifier;->onScreenOn()V
 
+    :goto_1
+    invoke-static {p1}, Lcom/android/server/power/ButtonLightController;->setScreenOn(Z)V
+
     .line 849
     :cond_0
-    :goto_1
     return-void
 
     .line 841

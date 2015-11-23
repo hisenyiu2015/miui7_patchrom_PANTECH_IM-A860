@@ -67,6 +67,10 @@
 
     iput v0, p0, Lcom/android/internal/telephony/Connection;->mCnapNamePresentation:I
 
+    const/4 v0, 0x0
+
+    iput v0, p0, Lcom/android/internal/telephony/Connection;->mFirewallCode:I
+
     new-instance v0, Lcom/android/internal/telephony/CallDetails;
 
     invoke-direct {v0}, Lcom/android/internal/telephony/CallDetails;-><init>()V
@@ -76,10 +80,6 @@
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/android/internal/telephony/Connection;->callModifyRequest:Lcom/android/internal/telephony/CallModify;
-
-    const/4 v0, 0x0
-
-    iput v0, p0, Lcom/android/internal/telephony/Connection;->mFirewallCode:I
 
     return-void
 .end method
