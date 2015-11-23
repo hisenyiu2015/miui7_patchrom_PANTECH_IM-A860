@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+        <title>Webpage not available</title>
+        function refreshClick(){
+					var info = document.getElementById('refresh_');
+					location.href = info.href;
+				}
+				</script>
+        <style type="text/css">
+            body { margin-top: 0px; padding-top: 0px; }
+            h2   { margin-top: 5px; padding-top: 0px; }
+        </style>
+
+        <body>
+
+            <img src="file:///android_asset/webkit/android-weberror.png" align="top" />
+            <h2>Webpage not available</h2>
+            <p>The webpage at <a id="refresh_" href="%s">%s</a> might be
+            temporarily down or it may have moved permanently to a new web
+            address.</p>
+
+            <p><b>Suggestions:</b></p>
+            <ul>
+                <li>Make sure you have a data connection</li>
+                <li><a href="javascript:refreshClick()">Refresh</a> your web page again.</li>
+                <li>Check the address you entered</li>
+                <li>If there is temporary service problem, restart device and try again.</li>
+                <li>Turn Airplane mode on and off, then try again.</br>
+                		(Settings > WIRELESS & NETWORK > More... > Airplane mode)</li>
+                <li>Restart device and try again.</li>
+                <li>If the problem persists, please contact Customer Service(114)</li>
+            </ul>
+        </body>
+    </head>
+</html>

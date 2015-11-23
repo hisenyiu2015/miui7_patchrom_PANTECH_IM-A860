@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:splitMotionEvents="false"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <FrameLayout android:id="@id/mini_app" android:background="@drawable/menu_bar_bg_port" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="11.0dip" android:textColor="#a5ffffff" android:clickable="true" android:layout_width="wrap_content" android:layout_height="27.0dip" android:layout_marginLeft="11.0dip" android:layout_marginTop="11.0dip" android:text="@string/aot_mini_window" />
+            <LinearLayout android:id="@id/aot_menu_page1" android:paddingLeft="67.0px" android:paddingTop="27.0dip" android:paddingRight="68.0px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0" android:splitMotionEvents="false" />
+            <LinearLayout android:id="@id/aot_menu_page2" android:paddingLeft="67.0px" android:paddingTop="27.0dip" android:paddingRight="68.0px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0" android:splitMotionEvents="false" />
+            <LinearLayout android:id="@id/aot_menu_page3" android:paddingLeft="67.0px" android:paddingTop="27.0dip" android:paddingRight="68.0px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0" android:splitMotionEvents="false" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

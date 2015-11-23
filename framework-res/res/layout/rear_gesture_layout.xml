@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:background="#00000000" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/img_gesture_center" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/rear_gesture_center" android:layout_centerInParent="true" />
+    <ImageView android:id="@id/img_gesture_right" android:visibility="gone" android:layout_width="130.0dip" android:layout_height="wrap_content" android:src="@drawable/rear_gesture_arrow_right" android:layout_toRightOf="@id/img_gesture_center" android:layout_centerInParent="true" />
+    <ImageView android:id="@id/img_gesture_left" android:visibility="gone" android:layout_width="130.0dip" android:layout_height="wrap_content" android:src="@drawable/rear_gesture_arrow_right" android:layout_toLeftOf="@id/img_gesture_center" android:layout_centerInParent="true" android:rotation="180.0" />
+    <ImageView android:id="@id/img_gesture_up" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/rear_gesture_arrow_up" android:scaleType="fitXY" android:layout_above="@id/img_gesture_center" android:layout_centerHorizontal="true" />
+    <ImageView android:id="@id/img_gesture_down" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/rear_gesture_arrow_up" android:scaleType="fitXY" android:layout_below="@id/img_gesture_center" android:layout_centerInParent="true" android:rotation="180.0" />
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView android:id="@id/HorizontalScroll" android:scrollbars="none" android:fadingEdgeLength="0.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="horizontal" android:background="@drawable/launcher_bg_port" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="12.0dip" android:textColor="#ffffffff" android:gravity="center" android:id="@id/aot_text_action" android:clickable="true" android:layout_width="88.0dip" android:layout_height="72.0dip" android:layout_marginLeft="64.0dip" android:layout_marginTop="11.0dip" android:text="@string/aot_text_action" android:drawableTop="@drawable/aot_icon_text_action" android:drawablePadding="2.0dip" />
+            <TextView android:textSize="12.0dip" android:textColor="#ffffffff" android:gravity="center" android:id="@id/aot_smart_voice" android:clickable="true" android:layout_width="88.0dip" android:layout_height="72.0dip" android:layout_marginLeft="56.0dip" android:layout_marginTop="11.0dip" android:layout_marginRight="64.0dip" android:text="@string/aot_smart_voice" android:drawableTop="@drawable/aot_icon_smart_voice" android:drawablePadding="2.0dip" />
+        </LinearLayout>
+        <RelativeLayout android:orientation="vertical" android:background="@drawable/menu_bar_bg_port" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="11.0dip" android:textColor="#ffc3c3c3" android:gravity="center" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="22.0dip" android:layout_marginTop="7.0dip" android:text="@string/aot_mini_window" />
+            <TableLayout android:layout_gravity="center_horizontal" android:id="@id/MenuLayout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="18.0dip" />
+        </RelativeLayout>
+    </LinearLayout>
+</HorizontalScrollView>

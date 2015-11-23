@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pantech_dialog_divider">#ff60b0b0</color>
+    <color name="pantech_dialog_title_text_color">#ff0e7676</color>
+    <color name="pantech_dialog_title_text_color_dark">#ff0ed3d3</color>
+    <color name="pantech_dialog_divider_dark">#ff08b9b9</color>
+</resources>
