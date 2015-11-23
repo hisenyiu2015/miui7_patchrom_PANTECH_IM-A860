@@ -42,3 +42,7 @@ if [ $1 = "TeleService" ];then
 	applyPatch $1 $2
 	$XMLMERGYTOOL $1/res/values $2/res/values
 fi
+
+if [ $1 = "SecurityCenter" ];then
+    applyPatch $1 $2
+fi
