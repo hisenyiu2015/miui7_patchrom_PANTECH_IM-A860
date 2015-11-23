@@ -49,6 +49,8 @@
 
 .field private mNetworkInfo:Landroid/net/NetworkInfo;
 
+.field private mPhoneService:Lcom/android/internal/telephony/ITelephony;
+
 .field private mPhoneServices:[Lcom/android/internal/telephony/ITelephony;
 
 .field private final mPhoneStateListener:Landroid/telephony/PhoneStateListener;
