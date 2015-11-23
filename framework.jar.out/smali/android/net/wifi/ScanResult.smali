@@ -960,3 +960,39 @@
 
     goto :goto_miui_1
 .end method
+
+.method public constructor <init>(Landroid/net/wifi/WifiSsid;Ljava/lang/String;Ljava/lang/String;IIJIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZ)V
+    .locals 2
+    .param p1, "wifiSsid"    # Landroid/net/wifi/WifiSsid;
+    .param p2, "BSSID"    # Ljava/lang/String;
+    .param p3, "caps"    # Ljava/lang/String;
+    .param p4, "level"    # I
+    .param p5, "frequency"    # I
+    .param p6, "tsf"    # J
+    .param p8, "distCm"    # I
+    .param p9, "distSdCm"    # I
+    .param p10, "codeType"    # Ljava/lang/String;
+    .param p11, "ssidHex"    # Ljava/lang/String;
+    .param p12, "vendorSpecificOUI"    # Ljava/lang/String;
+    .param p13, "vendorSpecificContents"    # Ljava/lang/String;
+    .param p14, "bssLoadElement"    # Ljava/lang/String;
+    .param p15, "isWpsConfigured"    # Z
+    .param p16, "isXiaomiRouter"    # Z
+
+    .prologue
+    invoke-direct/range {p0 .. p14}, Landroid/net/wifi/ScanResult;-><init>(Landroid/net/wifi/WifiSsid;Ljava/lang/String;Ljava/lang/String;IIJIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    move-object/from16 v0, p0
+
+    move/from16 v1, p15
+
+    iput-boolean v1, v0, Landroid/net/wifi/ScanResult;->isWpsConfigured:Z
+
+    move-object/from16 v0, p0
+
+    move/from16 v1, p16
+
+    iput-boolean v1, v0, Landroid/net/wifi/ScanResult;->isXiaomiRouter:Z
+
+    return-void
+.end method
