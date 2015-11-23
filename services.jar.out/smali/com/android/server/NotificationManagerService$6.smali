@@ -268,9 +268,19 @@
 
     iget-boolean v5, v0, Lcom/android/server/NotificationManagerService$6;->val$isSystemNotification:Z
 
-    if-nez v5, :cond_2
+    if-eqz v5, :cond_miui
 
-    .line 1851
+    move-object/from16 v0, p0
+
+    iget-object v5, v0, Lcom/android/server/NotificationManagerService$6;->val$pkg:Ljava/lang/String;
+
+    invoke-static {v5}, Lmiui/util/NotificationFilterHelper;->canSystemNotificationBeBlocked(Ljava/lang/String;)Z
+
+    move-result v5
+
+    if-eqz v5, :cond_2
+
+    :cond_miui
     const/16 v10, -0x3e8
 
     .line 1852

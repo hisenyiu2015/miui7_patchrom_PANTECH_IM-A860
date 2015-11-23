@@ -4857,6 +4857,8 @@
 
     .line 883
     :cond_1
+    invoke-direct {p0, p1}, Lcom/android/server/am/ActivityStack;->startPausingLocked_Middle(Lcom/android/server/am/ActivityRecord;)V
+
     invoke-virtual {p0, p1}, Lcom/android/server/am/ActivityStack;->screenshotActivities(Lcom/android/server/am/ActivityRecord;)Landroid/graphics/Bitmap;
 
     move-result-object v3
@@ -10912,6 +10914,16 @@
 
     iget-object v0, v0, Lcom/android/server/am/ActivityStack;->mTaskHistory:Ljava/util/ArrayList;
 
+    move-object/from16 v1, p0
+
+    move-object/from16 v2, v15
+
+    invoke-static {v1, v0, v2}, Lcom/android/server/am/ActivityStackInjector;->transferOnTopOfHomeForMoveTaskToBackLocked(Lcom/android/server/am/ActivityStack;Ljava/util/ArrayList;Lcom/android/server/am/TaskRecord;)V
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/server/am/ActivityStack;->mTaskHistory:Ljava/util/ArrayList;
+
     move-object/from16 v20, v0
 
     move-object/from16 v0, v20
@@ -11505,6 +11517,10 @@
     move-result v10
 
     invoke-virtual {v9, v10}, Lcom/android/server/am/ActivityStackSupervisor;->moveHomeStack(Z)V
+
+    iget-object v9, p0, Lcom/android/server/am/ActivityStack;->mTaskHistory:Ljava/util/ArrayList;
+
+    invoke-static {p0, v9, p1}, Lcom/android/server/am/ActivityStackInjector;->transferOnTopOfHomeForMoveTaskToFrontLocked(Lcom/android/server/am/ActivityStack;Ljava/util/ArrayList;Lcom/android/server/am/TaskRecord;)V
 
     .line 4020
     const/4 v7, 0x0

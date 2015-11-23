@@ -3570,6 +3570,8 @@
 
     invoke-virtual {v12, v0}, Landroid/widget/Switch;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
 
+    invoke-virtual/range {p0 .. p0}, Lcom/android/server/InputMethodManagerService;->removeCustomTitle()V
+
     .line 2735
     new-instance v7, Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;
 

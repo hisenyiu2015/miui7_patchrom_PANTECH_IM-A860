@@ -353,6 +353,18 @@
     .line 214
     iput-boolean v1, p0, Lcom/android/server/LocationManagerService;->mGeoFencerEnabled:Z
 
+    iget-object v0, p0, Lcom/android/server/LocationManagerService;->mLock:Ljava/lang/Object;
+
+    iget-object v1, p0, Lcom/android/server/LocationManagerService;->mReceivers:Ljava/util/HashMap;
+
+    invoke-static {p0, v0, v1}, Lcom/android/server/LocationManagerServiceInjector;->init(Lcom/android/server/LocationManagerService;Ljava/lang/Object;Ljava/util/HashMap;)V
+
+    invoke-static {p1, p0}, Lcom/android/server/LocationPolicyManagerService;->newDefaultService(Landroid/content/Context;Landroid/location/ILocationManager;)Lcom/android/server/LocationPolicyManagerService;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/server/LocationManagerService;->mLocationPolicyService:Lcom/android/server/LocationPolicyManagerService;
+
     .line 216
     const-string v0, "LocationManagerService"
 
@@ -9313,6 +9325,22 @@
 
     invoke-virtual {v0, v1, v2, v12}, Lcom/android/server/LocationManagerService;->checkLocationAccess(ILjava/lang/String;I)Z
 
+    move-result v4
+
+    if-eqz v4, :cond_6
+
+    move-object/from16 v0, p4
+
+    move-object/from16 v2, v18
+
+    move/from16 v1, v19
+
+    invoke-static {v1, v0, v2}, Lcom/android/server/LocationManagerServiceInjector;->checkIfRequestBlockedByPolicy(ILjava/lang/String;Landroid/location/LocationRequest;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_6
+
     .line 1501
     move-object/from16 v0, p0
 
@@ -9357,7 +9385,7 @@
     move-object/from16 v9, p4
 
     .line 1505
-    invoke-direct/range {v4 .. v9}, Lcom/android/server/LocationManagerService;->requestLocationUpdatesLocked(Landroid/location/LocationRequest;Lcom/android/server/LocationManagerService$Receiver;IILjava/lang/String;)V
+    invoke-virtual/range {v4 .. v9}, Lcom/android/server/LocationManagerService;->requestLocationUpdatesLocked(Landroid/location/LocationRequest;Lcom/android/server/LocationManagerService$Receiver;IILjava/lang/String;)V
 
     .line 1508
     :cond_5
@@ -9365,7 +9393,7 @@
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
-    .line 1510
+    :cond_6
     invoke-static {v13, v14}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
     goto :goto_1

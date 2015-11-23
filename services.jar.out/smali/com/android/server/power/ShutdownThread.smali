@@ -321,6 +321,10 @@
 
     invoke-interface {v1, v2}, Ljava/util/concurrent/Executor;->execute(Ljava/lang/Runnable;)V
 
+    sget-boolean v1, Lcom/android/server/power/ShutdownThread;->mReboot:Z
+
+    invoke-static {p0, v1}, Lcom/android/server/power/MiuiShutdownThread;->showShutdownDialog(Landroid/content/Context;Z)V
+
     .line 331
     sget-object v1, Lcom/android/server/power/ShutdownThread;->sInstance:Lcom/android/server/power/ShutdownThread;
 

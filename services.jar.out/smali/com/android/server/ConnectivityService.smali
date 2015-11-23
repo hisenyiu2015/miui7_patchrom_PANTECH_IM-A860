@@ -18282,13 +18282,98 @@
 .end method
 
 .method public startUsingNetworkFeature(ILjava/lang/String;Landroid/os/IBinder;)I
+    .locals 2
+    .param p1, "networkType"    # I
+    .param p2, "feature"    # Ljava/lang/String;
+    .param p3, "binder"    # Landroid/os/IBinder;
+
+    .prologue
+    invoke-static {}, Lmiui/telephony/SubscriptionManager;->getDefault()Lmiui/telephony/SubscriptionManager;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lmiui/telephony/SubscriptionManager;->getDefaultDataSlotId()I
+
+    move-result v0
+
+    .local v0, "slotId":I
+    invoke-direct {p0, p1, p2, p3, v0}, Lcom/android/server/ConnectivityService;->processUsingNetworkFeature(ILjava/lang/String;Landroid/os/IBinder;I)I
+
+    move-result v1
+
+    return v1
+.end method
+
+.method public startUsingNetworkFeatureMSim(ILjava/lang/String;Landroid/os/IBinder;I)I
+    .locals 1
+    .param p1, "networkType"    # I
+    .param p2, "feature"    # Ljava/lang/String;
+    .param p3, "binder"    # Landroid/os/IBinder;
+    .param p4, "slotId"    # I
+
+    .prologue
+    invoke-direct {p0, p1, p2, p3, p4}, Lcom/android/server/ConnectivityService;->processUsingNetworkFeature(ILjava/lang/String;Landroid/os/IBinder;I)I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public stopUsingNetworkFeature(ILjava/lang/String;)I
+    .locals 2
+    .param p1, "networkType"    # I
+    .param p2, "feature"    # Ljava/lang/String;
+
+    .prologue
+    invoke-static {}, Lmiui/telephony/SubscriptionManager;->getDefault()Lmiui/telephony/SubscriptionManager;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lmiui/telephony/SubscriptionManager;->getDefaultDataSlotId()I
+
+    move-result v0
+
+    .local v0, "slotId":I
+    invoke-direct {p0, p1, p2, v0}, Lcom/android/server/ConnectivityService;->processStopUsingNetworkFeature(ILjava/lang/String;I)I
+
+    move-result v1
+
+    return v1
+.end method
+
+.method public stopUsingNetworkFeatureMSim(ILjava/lang/String;I)I
+    .locals 1
+    .param p1, "networkType"    # I
+    .param p2, "feature"    # Ljava/lang/String;
+    .param p3, "slotId"    # I
+
+    .prologue
+    invoke-direct {p0, p1, p2, p3}, Lcom/android/server/ConnectivityService;->processStopUsingNetworkFeature(ILjava/lang/String;I)I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method private processUsingNetworkFeature(ILjava/lang/String;Landroid/os/IBinder;I)I
     .locals 26
     .param p1, "networkType"    # I
     .param p2, "feature"    # Ljava/lang/String;
     .param p3, "binder"    # Landroid/os/IBinder;
 
     .prologue
-    .line 1298
+    invoke-static/range {p4 .. p4}, Lmiui/telephony/SubscriptionManager;->isValidSlotId(I)Z
+
+    move-result v3
+
+    if-nez v3, :cond_miui_0
+
+    const/4 v3, 0x3
+
+    return v3
+
+    :cond_miui_0
+
     const-wide/16 v15, 0x0
 
     .line 1300
@@ -18578,6 +18663,10 @@
     move-object/from16 v3, p3
 
     invoke-direct {v9, v0, v1, v2, v3}, Lcom/android/server/ConnectivityService$FeatureUser;-><init>(Lcom/android/server/ConnectivityService;ILjava/lang/String;Landroid/os/IBinder;)V
+
+    move/from16 v0, p4
+
+    invoke-virtual {v9, v0}, Lcom/android/server/ConnectivityService$FeatureUser;->setSlotId(I)V
 
     .line 1333
     .local v9, "f":Lcom/android/server/ConnectivityService$FeatureUser;
@@ -20066,153 +20155,104 @@
     goto/16 :goto_3
 .end method
 
-.method public stopUsingNetworkFeature(ILjava/lang/String;)I
-    .locals 10
+.method private processStopUsingNetworkFeature(ILjava/lang/String;I)I
+    .locals 8
     .param p1, "networkType"    # I
     .param p2, "feature"    # Ljava/lang/String;
 
     .prologue
-    const/4 v7, 0x1
+    invoke-static {p3}, Lmiui/telephony/SubscriptionManager;->isValidSlotId(I)Z
 
-    .line 1471
+    move-result v1
+
+    if-nez v1, :cond_miui_0
+
+    const/4 v2, 0x3
+
+    return v2
+
+    :cond_miui_0
+    const/4 v6, 0x1
+
     invoke-direct {p0}, Lcom/android/server/ConnectivityService;->enforceChangePermission()V
 
-    .line 1473
     invoke-static {}, Lcom/android/server/ConnectivityService;->getCallingPid()I
 
-    move-result v3
+    move-result v2
 
-    .line 1474
-    .local v3, "pid":I
+    .local v2, "pid":I
     invoke-static {}, Lcom/android/server/ConnectivityService;->getCallingUid()I
 
-    move-result v5
+    move-result v4
 
-    .line 1476
-    .local v5, "uid":I
-    const/4 v4, 0x0
+    .local v4, "uid":I
+    const/4 v3, 0x0
 
-    .line 1477
-    .local v4, "u":Lcom/android/server/ConnectivityService$FeatureUser;
-    const/4 v1, 0x0
+    .local v3, "u":Lcom/android/server/ConnectivityService$FeatureUser;
+    const/4 v0, 0x0
 
-    .line 1479
-    .local v1, "found":Z
+    .local v0, "found":Z
     monitor-enter p0
 
-    .line 1480
     :try_start_0
-    iget-object v8, p0, Lcom/android/server/ConnectivityService;->mFeatureUsers:Ljava/util/List;
+    iget-object v7, p0, Lcom/android/server/ConnectivityService;->mFeatureUsers:Ljava/util/List;
 
-    invoke-interface {v8}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+    invoke-interface {v7}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
-    move-result-object v2
+    move-result-object v1
 
-    .local v2, "i$":Ljava/util/Iterator;
+    .local v1, "i$":Ljava/util/Iterator;
     :cond_0
-    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
 
-    move-result v8
+    move-result v7
 
-    if-eqz v8, :cond_1
+    if-eqz v7, :cond_1
 
-    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
-    move-result-object v6
+    move-result-object v5
 
-    check-cast v6, Lcom/android/server/ConnectivityService$FeatureUser;
+    check-cast v5, Lcom/android/server/ConnectivityService$FeatureUser;
 
-    .line 1481
-    .local v6, "x":Lcom/android/server/ConnectivityService$FeatureUser;
-    invoke-virtual {v6, v3, v5, p1, p2}, Lcom/android/server/ConnectivityService$FeatureUser;->isSameUser(IIILjava/lang/String;)Z
+    .local v5, "x":Lcom/android/server/ConnectivityService$FeatureUser;
+    invoke-virtual {v5, v2, v4, p1, p2}, Lcom/android/server/ConnectivityService$FeatureUser;->isSameUser(IIILjava/lang/String;)Z
 
-    move-result v8
+    move-result v7
 
-    if-eqz v8, :cond_0
+    if-eqz v7, :cond_0
 
-    .line 1482
-    move-object v4, v6
+    move-object v3, v5
 
-    .line 1483
-    const/4 v1, 0x1
+    const/4 v0, 0x1
 
-    .line 1487
-    .end local v6    # "x":Lcom/android/server/ConnectivityService$FeatureUser;
+    .end local v5    # "x":Lcom/android/server/ConnectivityService$FeatureUser;
     :cond_1
     monitor-exit p0
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 1490
-    const-string v8, "enableMMS"
+    if-eqz v0, :cond_2
 
-    invoke-static {p2, v8}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+    if-eqz v3, :cond_2
 
-    move-result v8
+    invoke-direct {p0, v3, v6, p3}, Lcom/android/server/ConnectivityService;->stopUsingNetworkFeature(Lcom/android/server/ConnectivityService$FeatureUser;ZI)I
 
-    if-eqz v8, :cond_2
+    move-result v6
 
-    .line 1491
-    new-instance v0, Landroid/content/Intent;
-
-    const-string v8, "com.pantech.CSP_MMS_ONOFF"
-
-    invoke-direct {v0, v8}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    .line 1492
-    .local v0, "broadcast":Landroid/content/Intent;
-    const-string v8, "onoff"
-
-    const/4 v9, 0x0
-
-    invoke-virtual {v0, v8, v9}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
-
-    .line 1493
-    iget-object v8, p0, Lcom/android/server/ConnectivityService;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v8, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
-
-    .line 1497
-    .end local v0    # "broadcast":Landroid/content/Intent;
     :cond_2
-    if-eqz v1, :cond_3
+    return v6
 
-    if-eqz v4, :cond_3
-
-    .line 1498
-    const-string v8, "stopUsingNetworkFeature: X"
-
-    invoke-static {v8}, Lcom/android/server/ConnectivityService;->log(Ljava/lang/String;)V
-
-    .line 1500
-    invoke-direct {p0, v4, v7}, Lcom/android/server/ConnectivityService;->stopUsingNetworkFeature(Lcom/android/server/ConnectivityService$FeatureUser;Z)I
-
-    move-result v7
-
-    .line 1504
-    :goto_0
-    return v7
-
-    .line 1487
-    .end local v2    # "i$":Ljava/util/Iterator;
+    .end local v1    # "i$":Ljava/util/Iterator;
     :catchall_0
-    move-exception v7
+    move-exception v6
 
     :try_start_1
     monitor-exit p0
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
-    throw v7
-
-    .line 1503
-    .restart local v2    # "i$":Ljava/util/Iterator;
-    :cond_3
-    const-string v8, "stopUsingNetworkFeature: X not a live request, ignoring"
-
-    invoke-static {v8}, Lcom/android/server/ConnectivityService;->log(Ljava/lang/String;)V
-
-    goto :goto_0
+    throw v6
 .end method
 
 .method public supplyMessenger(ILandroid/os/Messenger;)V
