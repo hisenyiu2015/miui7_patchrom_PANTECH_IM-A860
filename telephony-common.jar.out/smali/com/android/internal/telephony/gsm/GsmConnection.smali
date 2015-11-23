@@ -29,6 +29,8 @@
 
 .field static final WAKE_LOCK_TIMEOUT_MILLIS:I = 0xea60
 
+.field private static sIncomingCallSuppServiceNotification:Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
 
 # instance fields
 .field mAddress:Ljava/lang/String;
@@ -74,6 +76,8 @@
 .field mPostDialString:Ljava/lang/String;
 
 .field mSrvcc:Z
+
+.field private mSuppServiceNotification:Lcom/android/internal/telephony/gsm/SuppServiceNotification;
 
 .field mUusInfo:Lcom/android/internal/telephony/UUSInfo;
 
@@ -191,12 +195,12 @@
 
     iput-object v0, p0, Lcom/android/internal/telephony/gsm/GsmConnection;->mParent:Lcom/android/internal/telephony/gsm/GsmCall;
 
-    .line 165
     iget-object v0, p0, Lcom/android/internal/telephony/gsm/GsmConnection;->mParent:Lcom/android/internal/telephony/gsm/GsmCall;
 
     invoke-virtual {v0, p0, p2}, Lcom/android/internal/telephony/gsm/GsmCall;->attach(Lcom/android/internal/telephony/Connection;Lcom/android/internal/telephony/DriverCall;)V
 
-    .line 166
+    invoke-direct {p0}, Lcom/android/internal/telephony/gsm/GsmConnection;->adjustServiceNotification()V
+
     return-void
 .end method
 
@@ -2490,4 +2494,83 @@
 
     .line 560
     goto :goto_3
+.end method
+
+.method private adjustServiceNotification()V
+    .locals 1
+
+    .prologue
+    iget-boolean v0, p0, Lcom/android/internal/telephony/gsm/GsmConnection;->mIsIncoming:Z
+
+    if-eqz v0, :cond_0
+
+    sget-object v0, Lcom/android/internal/telephony/gsm/GsmConnection;->sIncomingCallSuppServiceNotification:Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
+    if-eqz v0, :cond_0
+
+    sget-object v0, Lcom/android/internal/telephony/gsm/GsmConnection;->sIncomingCallSuppServiceNotification:Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
+    invoke-virtual {p0, v0}, Lcom/android/internal/telephony/gsm/GsmConnection;->setSuppServiceNotification(Lcom/android/internal/telephony/gsm/SuppServiceNotification;)V
+
+    :cond_0
+    const/4 v0, 0x0
+
+    sput-object v0, Lcom/android/internal/telephony/gsm/GsmConnection;->sIncomingCallSuppServiceNotification:Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
+    return-void
+.end method
+
+.method public static setIncomingCallSuppServiceNotification(Lcom/android/internal/telephony/gsm/SuppServiceNotification;)V
+    .locals 1
+    .param p0, "ssn"    # Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
+    .prologue
+    if-eqz p0, :cond_0
+
+    iget v0, p0, Lcom/android/internal/telephony/gsm/SuppServiceNotification;->code:I
+
+    if-nez v0, :cond_0
+
+    sput-object p0, Lcom/android/internal/telephony/gsm/GsmConnection;->sIncomingCallSuppServiceNotification:Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
+    :cond_0
+    return-void
+.end method
+
+.method public isForwarded()Z
+    .locals 3
+
+    .prologue
+    const/4 v1, 0x1
+
+    iget-object v0, p0, Lcom/android/internal/telephony/gsm/GsmConnection;->mSuppServiceNotification:Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
+    .local v0, "ssn":Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+    if-eqz v0, :cond_0
+
+    iget v2, v0, Lcom/android/internal/telephony/gsm/SuppServiceNotification;->notificationType:I
+
+    if-ne v2, v1, :cond_0
+
+    iget v2, v0, Lcom/android/internal/telephony/gsm/SuppServiceNotification;->code:I
+
+    if-nez v2, :cond_0
+
+    :goto_0
+    return v1
+
+    :cond_0
+    const/4 v1, 0x0
+
+    goto :goto_0
+.end method
+
+.method public setSuppServiceNotification(Lcom/android/internal/telephony/gsm/SuppServiceNotification;)V
+    .locals 0
+    .param p1, "ssn"    # Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
+    .prologue
+    iput-object p1, p0, Lcom/android/internal/telephony/gsm/GsmConnection;->mSuppServiceNotification:Lcom/android/internal/telephony/gsm/SuppServiceNotification;
+
+    return-void
 .end method

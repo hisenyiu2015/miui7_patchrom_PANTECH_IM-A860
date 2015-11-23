@@ -357,7 +357,7 @@
 
 .field private mVolumeControlStream:I
 
-.field private mVolumePanel:Landroid/view/VolumePanel;
+.field private mVolumePanel:Lmiui/view/VolumePanel;
 
 
 # direct methods
@@ -811,20 +811,16 @@
 
     sput v0, Landroid/media/AudioService;->sSoundEffectVolumeDb:I
 
-    .line 513
-    new-instance v0, Landroid/view/VolumePanel;
+    new-instance v0, Lmiui/view/VolumePanel;
 
-    invoke-direct {v0, p1, p0}, Landroid/view/VolumePanel;-><init>(Landroid/content/Context;Landroid/media/AudioService;)V
+    invoke-direct {v0, p1, p0}, Lmiui/view/VolumePanel;-><init>(Landroid/content/Context;Landroid/media/AudioService;)V
 
-    iput-object v0, p0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
+    iput-object v0, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
 
-    .line 514
     iput v6, p0, Landroid/media/AudioService;->mForcedUseForComm:I
 
-    .line 516
     invoke-direct {p0}, Landroid/media/AudioService;->createAudioSystemThread()V
 
-    .line 518
     new-instance v0, Landroid/media/MediaFocusControl;
 
     iget-object v1, p0, Landroid/media/AudioService;->mAudioHandler:Landroid/media/AudioService$AudioHandler;
@@ -835,7 +831,7 @@
 
     iget-object v3, p0, Landroid/media/AudioService;->mContext:Landroid/content/Context;
 
-    iget-object v4, p0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
+    iget-object v4, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
 
     invoke-direct {v0, v1, v3, v4, p0}, Landroid/media/MediaFocusControl;-><init>(Landroid/os/Looper;Landroid/content/Context;Landroid/media/VolumeController;Landroid/media/AudioService;)V
 
@@ -2189,6 +2185,33 @@
     return-void
 .end method
 
+.method private adjustDirection(II)I
+    .locals 2
+    .param p1, "direction"    # I
+    .param p2, "flags"    # I
+
+    .prologue
+    move v0, p1
+
+    .local v0, "newDirection":I
+    and-int/lit8 v1, p2, 0x1
+
+    if-eqz v1, :cond_0
+
+    iget-object v1, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
+
+    invoke-virtual {v1}, Lmiui/view/VolumePanel;->isVisible()Z
+
+    move-result v1
+
+    if-nez v1, :cond_0
+
+    const/4 v0, 0x0
+
+    :cond_0
+    return v0
+.end method
+
 .method private broadcastMasterMuteStatus(Z)V
     .locals 2
     .param p1, "muted"    # Z
@@ -2510,42 +2533,31 @@
 
     goto :goto_0
 
-    .line 2612
     :cond_2
     if-ne p2, v4, :cond_3
 
-    .line 2613
     const/4 v1, 0x2
 
-    .line 2626
     :cond_3
     const/4 v0, 0x0
 
-    .line 2627
     goto :goto_0
 
-    .line 2629
     :pswitch_2
     if-ne p2, v4, :cond_4
 
-    .line 2632
     const/4 v1, 0x2
 
-    .line 2645
     :cond_4
     if-ne p2, v3, :cond_5
 
-    .line 2646
-    const/4 v1, 0x1
+    const/4 v1, 0x2
 
-    .line 2650
     :cond_5
     const/4 v0, 0x0
 
-    .line 2651
     goto :goto_0
 
-    .line 2577
     nop
 
     :pswitch_data_0
@@ -3753,17 +3765,25 @@
 
     if-eqz v0, :cond_a
 
-    .line 2815
     :cond_9
     const/4 p1, 0x5
 
     goto :goto_0
 
-    .line 2816
     :cond_a
+    invoke-static {v0, v0}, Landroid/media/AudioSystem;->isStreamActive(II)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_miui_0
+
+    move p1, v0
+
+    goto :goto_0
+
+    :cond_miui_0
     if-ne p1, v5, :cond_0
 
-    .line 2817
     invoke-direct {p0, v4}, Landroid/media/AudioService;->isAfMusicActiveRecently(I)Z
 
     move-result v0
@@ -4378,13 +4398,13 @@
     :try_start_4
     move-object/from16 v0, p0
 
-    iget-object v1, v0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
+    iget-object v1, v0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
 
     invoke-virtual {v9}, Landroid/content/res/Configuration;->getLayoutDirection()I
 
     move-result v2
 
-    invoke-virtual {v1, v2}, Landroid/view/VolumePanel;->setLayoutDirection(I)V
+    invoke-virtual {v1, v2}, Lmiui/view/VolumePanel;->setLayoutDirection(I)V
     :try_end_4
     .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_4} :catch_0
 
@@ -7176,15 +7196,12 @@
     .param p2, "flags"    # I
 
     .prologue
-    .line 1238
-    iget-object v0, p0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
+    iget-object v0, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
 
-    invoke-virtual {v0, p2}, Landroid/view/VolumePanel;->postMasterMuteChanged(I)V
+    invoke-virtual {v0, p2}, Lmiui/view/VolumePanel;->postMasterMuteChanged(I)V
 
-    .line 1239
     invoke-direct {p0, p1}, Landroid/media/AudioService;->broadcastMasterMuteStatus(Z)V
 
-    .line 1240
     return-void
 .end method
 
@@ -7195,33 +7212,27 @@
     .param p3, "newVolume"    # I
 
     .prologue
-    .line 1228
-    iget-object v1, p0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
+    iget-object v1, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
 
-    invoke-virtual {v1, p1}, Landroid/view/VolumePanel;->postMasterVolumeChanged(I)V
+    invoke-virtual {v1, p1}, Lmiui/view/VolumePanel;->postMasterVolumeChanged(I)V
 
-    .line 1230
     new-instance v0, Landroid/content/Intent;
 
     const-string v1, "android.media.MASTER_VOLUME_CHANGED_ACTION"
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 1231
     .local v0, "intent":Landroid/content/Intent;
     const-string v1, "android.media.EXTRA_PREV_MASTER_VOLUME_VALUE"
 
     invoke-virtual {v0, v1, p2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 1232
     const-string v1, "android.media.EXTRA_MASTER_VOLUME_VALUE"
 
     invoke-virtual {v0, v1, p3}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 1233
     invoke-virtual {p0, v0}, Landroid/media/AudioService;->sendBroadcastToAll(Landroid/content/Intent;)V
 
-    .line 1234
     return-void
 .end method
 
@@ -7308,7 +7319,7 @@
 .end method
 
 .method private sendVolumeUpdate(IIII)V
-    .locals 2
+    .locals 3
     .param p1, "streamType"    # I
     .param p2, "oldIndex"    # I
     .param p3, "index"    # I
@@ -7324,66 +7335,77 @@
 
     if-ne p1, v1, :cond_0
 
-    .line 1204
     const/4 p1, 0x5
 
-    .line 1209
     :cond_0
     iget-boolean v1, p0, Landroid/media/AudioService;->mExtremeVolume:Z
 
     if-eqz v1, :cond_1
 
-    .line 1210
     or-int/lit16 p4, p4, 0x100
 
-    .line 1213
     :cond_1
     iget-object v1, p0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
 
     invoke-virtual {v1, p1, p4}, Landroid/view/VolumePanel;->postVolumeChanged(II)V
 
-    .line 1215
     and-int/lit8 v1, p4, 0x20
 
     if-nez v1, :cond_2
 
-    .line 1216
     add-int/lit8 v1, p2, 0x5
 
     div-int/lit8 p2, v1, 0xa
 
-    .line 1217
     add-int/lit8 v1, p3, 0x5
 
     div-int/lit8 p3, v1, 0xa
 
-    .line 1218
+    iget-object v1, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
+
+    invoke-virtual {v1}, Lmiui/view/VolumePanel;->isVoiceMutable()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_miui_0
+
+    const/4 v1, 0x6
+
+    if-eq p1, v1, :cond_miui_1
+
+    if-nez p1, :cond_miui_0
+
+    :cond_miui_1
+    const/4 v1, 0x0
+
+    add-int/lit8 v2, p3, -0x1
+
+    invoke-static {v1, v2}, Ljava/lang/Math;->max(II)I
+
+    move-result p3
+
+    :cond_miui_0
     new-instance v0, Landroid/content/Intent;
 
     const-string v1, "android.media.VOLUME_CHANGED_ACTION"
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 1219
     .local v0, "intent":Landroid/content/Intent;
     const-string v1, "android.media.EXTRA_VOLUME_STREAM_TYPE"
 
     invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 1220
     const-string v1, "android.media.EXTRA_VOLUME_STREAM_VALUE"
 
     invoke-virtual {v0, v1, p3}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 1221
     const-string v1, "android.media.EXTRA_PREV_VOLUME_STREAM_VALUE"
 
     invoke-virtual {v0, v1, p2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 1222
     invoke-virtual {p0, v0}, Landroid/media/AudioService;->sendBroadcastToAll(Landroid/content/Intent;)V
 
-    .line 1224
     .end local v0    # "intent":Landroid/content/Intent;
     :cond_2
     return-void
@@ -8393,6 +8415,16 @@
 
     if-nez v3, :cond_0
 
+    move-object/from16 v0, p0
+
+    move/from16 v1, p2
+
+    move/from16 v2, p3
+
+    invoke-direct {v0, v1, v2}, Landroid/media/AudioService;->adjustDirection(II)I
+
+    move-result p2
+
     .line 872
     move-object/from16 v0, p0
 
@@ -8697,11 +8729,11 @@
     .line 958
     move-object/from16 v0, p0
 
-    iget-object v3, v0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
+    iget-object v3, v0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
 
     move/from16 v0, p3
 
-    invoke-virtual {v3, v0}, Landroid/view/VolumePanel;->postDisplaySafeVolumeWarning(I)V
+    invoke-virtual {v3, v0}, Lmiui/view/VolumePanel;->postDisplaySafeVolumeWarning(I)V
 
     .line 971
     :cond_9
@@ -10940,6 +10972,8 @@
 
     invoke-interface {v12, v5, v13}, Landroid/os/IBinder;->unlinkToDeath(Landroid/os/IBinder$DeathRecipient;I)Z
 
+    const/4 v5, 0x0
+
     .line 1688
     .end local v4    # "h":Landroid/media/AudioService$SetModeDeathHandler;
     :cond_2
@@ -11501,9 +11535,25 @@
 
     move-result v0
 
+    if-nez v0, :cond_miui_0
+
+    iget-object v0, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
+
+    invoke-virtual {v0}, Lmiui/view/VolumePanel;->isVoiceMutable()Z
+
+    move-result v0
+
     if-eqz v0, :cond_0
 
-    .line 1313
+    invoke-static {}, Landroid/os/Binder;->getCallingUid()I
+
+    move-result v0
+
+    const/16 v1, 0x3e9
+
+    if-ne v0, v1, :cond_0
+
+    :cond_miui_0
     iget-object v0, p0, Landroid/media/AudioService;->mStreamStates:[Landroid/media/AudioService$VolumeStreamState;
 
     aget-object v0, v0, p1
@@ -11521,16 +11571,13 @@
     .param p4, "callingPackage"    # Ljava/lang/String;
 
     .prologue
-    .line 1285
     iget-boolean v1, p0, Landroid/media/AudioService;->mUseFixedVolume:Z
 
     if-eqz v1, :cond_1
 
-    .line 1297
     :cond_0
     return-void
 
-    .line 1289
     :cond_1
     const/4 v0, 0x0
 
@@ -11542,7 +11589,6 @@
 
     if-ge v0, v1, :cond_0
 
-    .line 1290
     invoke-virtual {p0, v0}, Landroid/media/AudioService;->isStreamAffectedByMute(I)Z
 
     move-result v1
@@ -11551,14 +11597,12 @@
 
     if-ne v0, p1, :cond_3
 
-    .line 1289
     :cond_2
     :goto_1
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .line 1294
     :cond_3
     iget-object v1, p0, Landroid/media/AudioService;->mStreamStates:[Landroid/media/AudioService$VolumeStreamState;
 
@@ -11579,38 +11623,31 @@
     .prologue
     const/4 v3, 0x3
 
-    .line 1028
     iget-boolean v0, p0, Landroid/media/AudioService;->mUseFixedVolume:Z
 
     if-eqz v0, :cond_1
 
-    .line 1095
     :cond_0
     :goto_0
     return-void
 
-    .line 1032
     :cond_1
     invoke-direct {p0, p1}, Landroid/media/AudioService;->ensureValidStreamType(I)V
 
-    .line 1033
     iget-object v0, p0, Landroid/media/AudioService;->mStreamVolumeAlias:[I
 
     aget v8, v0, p1
 
-    .line 1034
     .local v8, "streamTypeAlias":I
     iget-object v0, p0, Landroid/media/AudioService;->mStreamStates:[Landroid/media/AudioService$VolumeStreamState;
 
     aget-object v7, v0, v8
 
-    .line 1036
     .local v7, "streamState":Landroid/media/AudioService$VolumeStreamState;
     invoke-direct {p0, p1}, Landroid/media/AudioService;->getDeviceForStream(I)I
 
     move-result v5
 
-    .line 1041
     .local v5, "device":I
     and-int/lit16 v0, v5, 0x380
 
@@ -11620,7 +11657,6 @@
 
     if-nez v0, :cond_0
 
-    .line 1046
     :cond_2
     iget-object v0, p0, Landroid/media/AudioService;->mAppOps:Landroid/app/AppOpsManager;
 
@@ -11638,23 +11674,19 @@
 
     if-nez v0, :cond_0
 
-    .line 1051
     iget-object v9, p0, Landroid/media/AudioService;->mSafeMediaVolumeState:Ljava/lang/Integer;
 
     monitor-enter v9
 
-    .line 1053
     const/4 v0, 0x0
 
     :try_start_0
     iput-object v0, p0, Landroid/media/AudioService;->mPendingVolumeCommand:Landroid/media/AudioService$StreamVolumeCommand;
 
-    .line 1055
     invoke-virtual {v7, v5}, Landroid/media/AudioService$VolumeStreamState;->getIndex(I)I
 
     move-result v6
 
-    .line 1057
     .local v6, "oldIndex":I
     mul-int/lit8 v0, p2, 0xa
 
@@ -11662,7 +11694,6 @@
 
     move-result p2
 
-    .line 1059
     if-ne v8, v3, :cond_4
 
     and-int/lit16 v0, v5, 0x380
@@ -11673,14 +11704,12 @@
 
     if-nez v0, :cond_4
 
-    .line 1062
     iget-object v1, p0, Landroid/media/AudioService;->mA2dpAvrcpLock:Ljava/lang/Object;
 
     monitor-enter v1
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_1
 
-    .line 1063
     :try_start_1
     iget-object v0, p0, Landroid/media/AudioService;->mA2dp:Landroid/bluetooth/BluetoothA2dp;
 
@@ -11690,37 +11719,30 @@
 
     if-eqz v0, :cond_3
 
-    .line 1064
     iget-object v0, p0, Landroid/media/AudioService;->mA2dp:Landroid/bluetooth/BluetoothA2dp;
 
     div-int/lit8 v2, p2, 0xa
 
     invoke-virtual {v0, v2}, Landroid/bluetooth/BluetoothA2dp;->setAvrcpAbsoluteVolume(I)V
 
-    .line 1066
     :cond_3
     monitor-exit v1
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
-    .line 1069
     :cond_4
     and-int/lit8 p3, p3, -0x21
 
-    .line 1070
     if-ne v8, v3, :cond_5
 
     and-int/lit16 v0, v5, 0x7400
 
     if-eqz v0, :cond_5
 
-    .line 1072
     or-int/lit8 p3, p3, 0x20
 
-    .line 1075
     if-eqz p2, :cond_5
 
-    .line 1076
     :try_start_2
     iget-object v0, p0, Landroid/media/AudioService;->mSafeMediaVolumeState:Ljava/lang/Integer;
 
@@ -11734,10 +11756,8 @@
 
     if-eqz v0, :cond_6
 
-    .line 1078
     iget p2, p0, Landroid/media/AudioService;->mSafeMediaVolumeIndex:I
 
-    .line 1085
     :cond_5
     :goto_1
     invoke-direct {p0, v8, p2, v5}, Landroid/media/AudioService;->checkSafeMediaVolume(III)Z
@@ -11746,12 +11766,10 @@
 
     if-nez v0, :cond_7
 
-    .line 1086
-    iget-object v0, p0, Landroid/media/AudioService;->mVolumePanel:Landroid/view/VolumePanel;
+    iget-object v0, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
 
-    invoke-virtual {v0, p3}, Landroid/view/VolumePanel;->postDisplaySafeVolumeWarning(I)V
+    invoke-virtual {v0, p3}, Lmiui/view/VolumePanel;->postDisplaySafeVolumeWarning(I)V
 
-    .line 1087
     new-instance v0, Landroid/media/AudioService$StreamVolumeCommand;
 
     move-object v1, p0
@@ -11766,18 +11784,15 @@
 
     iput-object v0, p0, Landroid/media/AudioService;->mPendingVolumeCommand:Landroid/media/AudioService$StreamVolumeCommand;
 
-    .line 1093
     :goto_2
     monitor-exit v9
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_1
 
-    .line 1094
     invoke-direct {p0, p1, v6, p2, p3}, Landroid/media/AudioService;->sendVolumeUpdate(IIII)V
 
     goto/16 :goto_0
 
-    .line 1066
     :catchall_0
     move-exception v0
 
@@ -11789,7 +11804,6 @@
     :try_start_4
     throw v0
 
-    .line 1093
     .end local v6    # "oldIndex":I
     :catchall_1
     move-exception v0
@@ -11800,7 +11814,6 @@
 
     throw v0
 
-    .line 1080
     .restart local v6    # "oldIndex":I
     :cond_6
     :try_start_5
@@ -11810,11 +11823,10 @@
 
     goto :goto_1
 
-    .line 1090
     :cond_7
     invoke-direct {p0, p1, p2, p3, v5}, Landroid/media/AudioService;->onSetStreamVolume(IIII)V
 
-    .line 1091
+    .line 1313
     iget-object v0, p0, Landroid/media/AudioService;->mStreamStates:[Landroid/media/AudioService$VolumeStreamState;
 
     aget-object v0, v0, p1
@@ -11834,16 +11846,13 @@
     .param p2, "vibrateSetting"    # I
 
     .prologue
-    .line 1570
     iget-boolean v0, p0, Landroid/media/AudioService;->mHasVibrator:Z
 
     if-nez v0, :cond_0
 
-    .line 1577
     :goto_0
     return-void
 
-    .line 1572
     :cond_0
     iget v0, p0, Landroid/media/AudioService;->mVibrateSetting:I
 
@@ -11853,7 +11862,6 @@
 
     iput v0, p0, Landroid/media/AudioService;->mVibrateSetting:I
 
-    .line 1575
     invoke-direct {p0, p1}, Landroid/media/AudioService;->broadcastVibrateSetting(I)V
 
     goto :goto_0
@@ -11868,18 +11876,15 @@
     .prologue
     const/4 v9, 0x1
 
-    .line 2928
     iget-object v8, p0, Landroid/media/AudioService;->mConnectedDevices:Ljava/util/HashMap;
 
     monitor-enter v8
 
-    .line 2929
     :try_start_0
     invoke-direct {p0, p1, p2}, Landroid/media/AudioService;->checkSendBecomingNoisyIntent(II)I
 
     move-result v6
 
-    .line 2930
     .local v6, "delay":I
     iget-object v1, p0, Landroid/media/AudioService;->mAudioHandler:Landroid/media/AudioService$AudioHandler;
 
@@ -11895,12 +11900,10 @@
 
     invoke-direct/range {v0 .. v6}, Landroid/media/AudioService;->queueMsgUnderWakeLock(Landroid/os/Handler;IIILjava/lang/Object;I)V
 
-    .line 2936
     monitor-exit v8
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 2941
     iget-boolean v0, p0, Landroid/media/AudioService;->mBootCompleted:Z
 
     if-eqz v0, :cond_1
@@ -11913,7 +11916,6 @@
 
     if-ne p1, v0, :cond_1
 
-    .line 2942
     :cond_0
     const-string v0, "AudioService"
 
@@ -11921,7 +11923,7 @@
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string/jumbo v2, "setWiredDeviceConnectionState()  mBootCompleted = "
+    const-string v2, "setWiredDeviceConnectionState()  mBootCompleted = "
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -11951,37 +11953,30 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2943
     if-ne p2, v9, :cond_3
 
-    .line 2944
     new-instance v7, Landroid/content/Intent;
 
     const-string v0, "android.media.AUDIO_HEADSET_PLUGED"
 
     invoke-direct {v7, v0}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 2945
     .local v7, "intent":Landroid/content/Intent;
     sget-boolean v0, Landroid/media/AudioManager;->bHSPlugedAtBootTime:Z
 
     if-eqz v0, :cond_2
 
-    .line 2946
     const-string v0, "hs_pluged_boottime"
 
     invoke-virtual {v7, v0, v9}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
 
-    .line 2954
     :goto_0
     invoke-virtual {p0, v7}, Landroid/media/AudioService;->sendBroadcastToAll(Landroid/content/Intent;)V
 
-    .line 2957
     .end local v7    # "intent":Landroid/content/Intent;
     :cond_1
     return-void
 
-    .line 2936
     .end local v6    # "delay":I
     :catchall_0
     move-exception v0
@@ -11993,7 +11988,6 @@
 
     throw v0
 
-    .line 2948
     .restart local v6    # "delay":I
     .restart local v7    # "intent":Landroid/content/Intent;
     :cond_2
@@ -12005,7 +11999,6 @@
 
     goto :goto_0
 
-    .line 2951
     .end local v7    # "intent":Landroid/content/Intent;
     :cond_3
     new-instance v7, Landroid/content/Intent;
@@ -12027,17 +12020,14 @@
 
     const/4 v1, 0x0
 
-    .line 1542
     iget-boolean v2, p0, Landroid/media/AudioService;->mHasVibrator:Z
 
     if-nez v2, :cond_0
 
-    .line 1557
     :goto_0
     :pswitch_0
     return v1
 
-    .line 1544
     :cond_0
     invoke-virtual {p0, p1}, Landroid/media/AudioService;->getVibrateSetting(I)I
 
@@ -12047,7 +12037,6 @@
 
     goto :goto_0
 
-    .line 1547
     :pswitch_1
     invoke-virtual {p0}, Landroid/media/AudioService;->getRingerMode()I
 
@@ -12065,7 +12054,6 @@
 
     goto :goto_1
 
-    .line 1550
     :pswitch_2
     invoke-virtual {p0}, Landroid/media/AudioService;->getRingerMode()I
 
@@ -12078,12 +12066,12 @@
 
     goto :goto_0
 
+    .line 1046
     :cond_2
     move v0, v1
 
     goto :goto_2
 
-    .line 1544
     nop
 
     :pswitch_data_0
@@ -12100,8 +12088,7 @@
     .param p2, "targetSdkVersion"    # I
 
     .prologue
-    .line 2082
-    const-string/jumbo v3, "startBluetoothSco()"
+    const-string v3, "startBluetoothSco()"
 
     invoke-virtual {p0, v3}, Landroid/media/AudioService;->checkAudioSettingsPermission(Ljava/lang/String;)Z
 
@@ -12113,12 +12100,10 @@
 
     if-nez v3, :cond_1
 
-    .line 2095
     :cond_0
     :goto_0
     return-void
 
-    .line 2086
     :cond_1
     const/4 v3, 0x1
 
@@ -12126,17 +12111,14 @@
 
     move-result-object v0
 
-    .line 2092
     .local v0, "client":Landroid/media/AudioService$ScoClient;
     invoke-static {}, Landroid/os/Binder;->clearCallingIdentity()J
 
     move-result-wide v1
 
-    .line 2093
     .local v1, "ident":J
     invoke-virtual {v0, p2}, Landroid/media/AudioService$ScoClient;->incCount(I)V
 
-    .line 2094
     invoke-static {v1, v2}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
     goto :goto_0
@@ -12147,12 +12129,10 @@
     .param p1, "observer"    # Landroid/media/IAudioRoutesObserver;
 
     .prologue
-    .line 4714
     iget-object v2, p0, Landroid/media/AudioService;->mCurAudioRoutes:Landroid/media/AudioRoutesInfo;
 
     monitor-enter v2
 
-    .line 4715
     :try_start_0
     new-instance v0, Landroid/media/AudioRoutesInfo;
 
@@ -12160,18 +12140,15 @@
 
     invoke-direct {v0, v1}, Landroid/media/AudioRoutesInfo;-><init>(Landroid/media/AudioRoutesInfo;)V
 
-    .line 4716
     .local v0, "routes":Landroid/media/AudioRoutesInfo;
     iget-object v1, p0, Landroid/media/AudioService;->mRoutesObservers:Landroid/os/RemoteCallbackList;
 
     invoke-virtual {v1, p1}, Landroid/os/RemoteCallbackList;->register(Landroid/os/IInterface;)Z
 
-    .line 4717
     monitor-exit v2
 
     return-object v0
 
-    .line 4718
     .end local v0    # "routes":Landroid/media/AudioRoutesInfo;
     :catchall_0
     move-exception v1
@@ -12188,8 +12165,7 @@
     .param p1, "cb"    # Landroid/os/IBinder;
 
     .prologue
-    .line 2099
-    const-string/jumbo v3, "stopBluetoothSco()"
+    const-string v3, "stopBluetoothSco()"
 
     invoke-virtual {p0, v3}, Landroid/media/AudioService;->checkAudioSettingsPermission(Ljava/lang/String;)Z
 
@@ -12201,12 +12177,10 @@
 
     if-nez v3, :cond_1
 
-    .line 2112
     :cond_0
     :goto_0
     return-void
 
-    .line 2103
     :cond_1
     const/4 v3, 0x0
 
@@ -12214,20 +12188,16 @@
 
     move-result-object v0
 
-    .line 2107
     .local v0, "client":Landroid/media/AudioService$ScoClient;
     invoke-static {}, Landroid/os/Binder;->clearCallingIdentity()J
 
     move-result-wide v1
 
-    .line 2108
     .local v1, "ident":J
     if-eqz v0, :cond_2
 
-    .line 2109
     invoke-virtual {v0}, Landroid/media/AudioService$ScoClient;->decCount()V
 
-    .line 2111
     :cond_2
     invoke-static {v1, v2}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
@@ -12240,7 +12210,6 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 1901
     iget-object v0, p0, Landroid/media/AudioService;->mAudioHandler:Landroid/media/AudioService$AudioHandler;
 
     const/16 v1, 0x14
@@ -12255,7 +12224,6 @@
 
     invoke-static/range {v0 .. v6}, Landroid/media/AudioService;->sendMsg(Landroid/os/Handler;IIIILjava/lang/Object;I)V
 
-    .line 1902
     return-void
 .end method
 
@@ -12264,12 +12232,10 @@
     .param p1, "clientId"    # Ljava/lang/String;
 
     .prologue
-    .line 4559
     iget-object v0, p0, Landroid/media/AudioService;->mMediaFocusControl:Landroid/media/MediaFocusControl;
 
     invoke-virtual {v0, p1}, Landroid/media/MediaFocusControl;->unregisterAudioFocusClient(Ljava/lang/String;)V
 
-    .line 4560
     return-void
 .end method
 
@@ -12277,12 +12243,10 @@
     .locals 1
 
     .prologue
-    .line 4484
     iget-object v0, p0, Landroid/media/AudioService;->mMediaFocusControl:Landroid/media/MediaFocusControl;
 
     invoke-virtual {v0}, Landroid/media/MediaFocusControl;->unregisterMediaButtonEventReceiverForCalls()V
 
-    .line 4485
     return-void
 .end method
 
@@ -12291,12 +12255,10 @@
     .param p1, "pi"    # Landroid/app/PendingIntent;
 
     .prologue
-    .line 4492
     iget-object v0, p0, Landroid/media/AudioService;->mMediaFocusControl:Landroid/media/MediaFocusControl;
 
     invoke-virtual {v0, p1}, Landroid/media/MediaFocusControl;->unregisterMediaButtonIntent(Landroid/app/PendingIntent;)V
 
-    .line 4493
     return-void
 .end method
 
@@ -12306,12 +12268,10 @@
     .param p2, "rcClient"    # Landroid/media/IRemoteControlClient;
 
     .prologue
-    .line 4502
     iget-object v0, p0, Landroid/media/AudioService;->mMediaFocusControl:Landroid/media/MediaFocusControl;
 
     invoke-virtual {v0, p1, p2}, Landroid/media/MediaFocusControl;->unregisterRemoteControlClient(Landroid/app/PendingIntent;Landroid/media/IRemoteControlClient;)V
 
-    .line 4503
     return-void
 .end method
 
@@ -12320,12 +12280,10 @@
     .param p1, "rcd"    # Landroid/media/IRemoteControlDisplay;
 
     .prologue
-    .line 4467
     iget-object v0, p0, Landroid/media/AudioService;->mMediaFocusControl:Landroid/media/MediaFocusControl;
 
     invoke-virtual {v0, p1}, Landroid/media/MediaFocusControl;->unregisterRemoteControlDisplay(Landroid/media/IRemoteControlDisplay;)V
 
-    .line 4468
     return-void
 .end method
 
@@ -12336,12 +12294,10 @@
     .param p3, "value"    # Landroid/media/Rating;
 
     .prologue
-    .line 4510
     iget-object v0, p0, Landroid/media/AudioService;->mMediaFocusControl:Landroid/media/MediaFocusControl;
 
     invoke-virtual {v0, p1, p2, p3}, Landroid/media/MediaFocusControl;->updateRemoteControlClientMetadata(IILandroid/media/Rating;)V
 
-    .line 4511
     return-void
 .end method
 
@@ -12351,10 +12307,9 @@
     .prologue
     const/4 v4, -0x2
 
-    .line 2676
     iget-object v1, p0, Landroid/media/AudioService;->mContentResolver:Landroid/content/ContentResolver;
 
-    const-string/jumbo v2, "mode_ringer_streams_affected"
+    const-string v2, "mode_ringer_streams_affected"
 
     const/16 v3, 0xa6
 
@@ -12362,25 +12317,20 @@
 
     move-result v0
 
-    .line 2683
     .local v0, "ringerModeAffectedStreams":I
     or-int/lit16 v0, v0, 0x126
 
-    .line 2688
     iget-boolean v1, p0, Landroid/media/AudioService;->mVoiceCapable:Z
 
     if-eqz v1, :cond_0
 
-    .line 2689
     and-int/lit8 v0, v0, -0x9
 
-    .line 2693
     :goto_0
     iget-object v2, p0, Landroid/media/AudioService;->mCameraSoundForced:Ljava/lang/Boolean;
 
     monitor-enter v2
 
-    .line 2694
     :try_start_0
     iget-object v1, p0, Landroid/media/AudioService;->mCameraSoundForced:Ljava/lang/Boolean;
 
@@ -12390,16 +12340,13 @@
 
     if-eqz v1, :cond_1
 
-    .line 2695
     and-int/lit16 v0, v0, -0x81
 
-    .line 2699
     :goto_1
     monitor-exit v2
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 2700
     iget-object v1, p0, Landroid/media/AudioService;->mStreamVolumeAlias:[I
 
     const/16 v2, 0x8
@@ -12410,45 +12357,37 @@
 
     if-ne v1, v2, :cond_2
 
-    .line 2701
     or-int/lit16 v0, v0, 0x100
 
-    .line 2706
     :goto_2
     iget v1, p0, Landroid/media/AudioService;->mRingerModeAffectedStreams:I
 
     if-eq v0, v1, :cond_3
 
-    .line 2707
     iget-object v1, p0, Landroid/media/AudioService;->mContentResolver:Landroid/content/ContentResolver;
 
-    const-string/jumbo v2, "mode_ringer_streams_affected"
+    const-string v2, "mode_ringer_streams_affected"
 
     invoke-static {v1, v2, v0, v4}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 2711
     iput v0, p0, Landroid/media/AudioService;->mRingerModeAffectedStreams:I
 
-    .line 2712
     const/4 v1, 0x1
 
-    .line 2714
     :goto_3
     return v1
 
-    .line 2691
+    .line 2942
     :cond_0
     or-int/lit8 v0, v0, 0x8
 
     goto :goto_0
 
-    .line 2697
     :cond_1
     or-int/lit16 v0, v0, 0x80
 
     goto :goto_1
 
-    .line 2699
     :catchall_0
     move-exception v1
 
@@ -12582,4 +12521,14 @@
     const/4 v6, 0x5
 
     goto :goto_1
+.end method
+
+.method static synthetic access_mVolumePanel(Landroid/media/AudioService;)Lmiui/view/VolumePanel;
+    .locals 1
+    .param p0, "x0"    # Landroid/media/AudioService;
+
+    .prologue
+    iget-object v0, p0, Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
+
+    return-object v0
 .end method

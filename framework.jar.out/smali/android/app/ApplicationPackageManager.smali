@@ -1638,6 +1638,15 @@
     goto :goto_0
 .end method
 
+.method getContext()Landroid/app/ContextImpl;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/app/ApplicationPackageManager;->mContext:Landroid/app/ContextImpl;
+
+    return-object v0
+.end method
+
 .method public getDefaultActivityIcon()Landroid/graphics/drawable/Drawable;
     .locals 2
 
@@ -2968,11 +2977,13 @@
 
     move-result-object v0
 
-    .line 778
     .local v0, "r":Landroid/content/res/Resources;
+    iget-object v1, p1, Landroid/content/pm/ApplicationInfo;->packageName:Ljava/lang/String;
+
+    invoke-static {v0, v1}, Landroid/miui/ResourcesManager;->initMiuiResource(Landroid/content/res/Resources;Ljava/lang/String;)V
+
     if-nez v0, :cond_0
 
-    .line 781
     new-instance v1, Landroid/content/pm/PackageManager$NameNotFoundException;
 
     new-instance v2, Ljava/lang/StringBuilder;

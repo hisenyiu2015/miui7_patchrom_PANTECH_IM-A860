@@ -230,35 +230,29 @@
 
     if-nez v10, :cond_3
 
-    .line 238
     :cond_2
     iput-object p2, p0, Landroid/app/ResourcesManager;->mResCompatibilityInfo:Landroid/content/res/CompatibilityInfo;
 
-    .line 239
     or-int/lit16 v0, v0, 0xd00
 
-    .line 245
     :cond_3
+    invoke-static {v0, p1}, Landroid/app/MiuiThemeHelper;->handleExtraConfigurationChanges(ILandroid/content/res/Configuration;)V
+
     iget-object v10, p1, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
 
     if-eqz v10, :cond_4
 
-    .line 246
     iget-object v10, p1, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
 
     invoke-static {v10}, Ljava/util/Locale;->setDefault(Ljava/util/Locale;)V
 
-    .line 249
     :cond_4
     invoke-static {p1, v1, p2}, Landroid/content/res/Resources;->updateSystemConfiguration(Landroid/content/res/Configuration;Landroid/util/DisplayMetrics;Landroid/content/res/CompatibilityInfo;)V
 
-    .line 251
     invoke-static {}, Landroid/app/ApplicationPackageManager;->configurationChanged()V
 
-    .line 254
     const/4 v9, 0x0
 
-    .line 256
     .local v9, "tmpConfig":Landroid/content/res/Configuration;
     iget-object v10, p0, Landroid/app/ResourcesManager;->mActiveResources:Landroid/util/ArrayMap;
 
@@ -884,14 +878,14 @@
     .line 199
     :cond_5
     :goto_3
-    new-instance v7, Landroid/content/res/Resources;
+    new-instance v7, Landroid/content/res/MiuiResources;
 
     .end local v7    # "r":Landroid/content/res/Resources;
     move-object/from16 v11, p4
 
     move-object/from16 v12, p5
 
-    invoke-direct/range {v7 .. v12}, Landroid/content/res/Resources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)V
+    invoke-direct/range {v7 .. v12}, Landroid/content/res/MiuiResources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)V
 
     .line 206
     .restart local v7    # "r":Landroid/content/res/Resources;

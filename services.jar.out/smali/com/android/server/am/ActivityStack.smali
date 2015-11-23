@@ -5074,6 +5074,80 @@
     goto :goto_2
 .end method
 
+.method private startPausingLocked_Middle(Lcom/android/server/am/ActivityRecord;)V
+    .locals 2
+    .param p1, "prev"    # Lcom/android/server/am/ActivityRecord;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/am/ActivityStack;->mWindowManager:Lcom/android/server/wm/WindowManagerService;
+
+    invoke-virtual {v0}, Lcom/android/server/wm/WindowManagerService;->getFocusedWindowType()I
+
+    move-result v0
+
+    const/16 v1, 0x7d0
+
+    if-eq v0, v1, :cond_1
+
+    iget-object v0, p1, Lcom/android/server/am/ActivityRecord;->task:Lcom/android/server/am/TaskRecord;
+
+    iget-object v0, v0, Lcom/android/server/am/TaskRecord;->intent:Landroid/content/Intent;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p1, Lcom/android/server/am/ActivityRecord;->task:Lcom/android/server/am/TaskRecord;
+
+    iget-object v0, v0, Lcom/android/server/am/TaskRecord;->intent:Landroid/content/Intent;
+
+    invoke-virtual {v0}, Landroid/content/Intent;->getFlags()I
+
+    move-result v0
+
+    const/high16 v1, 0x800000
+
+    and-int/2addr v0, v1
+
+    if-nez v0, :cond_1
+
+    :cond_0
+    iget-object v1, p0, Lcom/android/server/am/ActivityStack;->mContext:Landroid/content/Context;
+
+    iget-object v0, p1, Lcom/android/server/am/ActivityRecord;->task:Lcom/android/server/am/TaskRecord;
+
+    iget-object v0, v0, Lcom/android/server/am/TaskRecord;->origActivity:Landroid/content/ComponentName;
+
+    if-eqz v0, :cond_2
+
+    iget-object v0, p1, Lcom/android/server/am/ActivityRecord;->task:Lcom/android/server/am/TaskRecord;
+
+    iget-object v0, v0, Lcom/android/server/am/TaskRecord;->origActivity:Landroid/content/ComponentName;
+
+    invoke-virtual {v0}, Landroid/content/ComponentName;->flattenToShortString()Ljava/lang/String;
+
+    move-result-object v0
+
+    :goto_0
+    invoke-static {v1, v0}, Lmiui/util/ScreenshotUtils;->captureActivityScreenshot(Landroid/content/Context;Ljava/lang/String;)V
+
+    :cond_1
+    return-void
+
+    :cond_2
+    iget-object v0, p1, Lcom/android/server/am/ActivityRecord;->task:Lcom/android/server/am/TaskRecord;
+
+    iget-object v0, v0, Lcom/android/server/am/TaskRecord;->intent:Landroid/content/Intent;
+
+    invoke-virtual {v0}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/content/ComponentName;->flattenToShortString()Ljava/lang/String;
+
+    move-result-object v0
+
+    goto :goto_0
+.end method
+
 .method private stopFullyDrawnTraceIfNeeded()V
     .locals 6
 
@@ -7497,6 +7571,19 @@
 
     .line 4410
     :cond_6
+    iget-object v5, p1, Lcom/android/server/am/ActivityRecord;->packageName:Ljava/lang/String;
+
+    invoke-static {v5, v0, v2, v1}, Landroid/app/MiuiThemeHelper;->canKeepActivityAlive(Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/Configuration;)Z
+
+    move-result v5
+
+    if-eqz v5, :cond_miui_0
+
+    const/4 v5, 0x1
+
+    return v5
+
+    :cond_miui_0
     iget-object v5, p1, Lcom/android/server/am/ActivityRecord;->info:Landroid/content/pm/ActivityInfo;
 
     invoke-virtual {v5}, Landroid/content/pm/ActivityInfo;->getRealConfigChanged()I

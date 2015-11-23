@@ -518,6 +518,14 @@
 
     invoke-static {v0, v1, v2}, Landroid/media/MediaFile;->addFileType(Ljava/lang/String;ILjava/lang/String;)V
 
+    const-string v0, "APE"
+
+    const/16 v1, 0x3e9
+
+    const-string v2, "audio/x-monkeys-audio"
+
+    invoke-static {v0, v1, v2}, Landroid/media/MediaFile;->addFileType(Ljava/lang/String;ILjava/lang/String;)V
+
     .line 240
     const-string v0, "MPEG"
 

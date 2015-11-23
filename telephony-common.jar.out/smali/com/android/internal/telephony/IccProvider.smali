@@ -38,8 +38,7 @@
 
     const/4 v3, 0x1
 
-    .line 45
-    const/4 v0, 0x4
+    const/4 v0, 0x5
 
     new-array v0, v0, [Ljava/lang/String;
 
@@ -60,6 +59,12 @@
     const-string v1, "_id"
 
     aput-object v1, v0, v5
+
+    const/4 v1, 0x4
+
+    const-string v2, "anr"
+
+    aput-object v2, v0, v1
 
     sput-object v0, Lcom/android/internal/telephony/IccProvider;->ADDRESS_BOOK_COLUMN_NAMES:[Ljava/lang/String;
 

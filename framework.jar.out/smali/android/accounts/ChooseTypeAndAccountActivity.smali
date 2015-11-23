@@ -896,17 +896,15 @@
     :cond_0
     new-instance v0, Landroid/content/Intent;
 
-    const-class v1, Landroid/accounts/ChooseAccountTypeActivity;
+    invoke-direct {v0}, Landroid/content/Intent;-><init>()V
 
-    invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
-
-    .line 441
     .local v0, "intent":Landroid/content/Intent;
+    invoke-static {v0}, Landroid/accounts/ChooseTypeAndAccountActivityInjector;->toMiuiChooseAccountTypeActivity(Landroid/content/Intent;)V
+
     const/high16 v1, 0x80000
 
     invoke-virtual {v0, v1}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
 
-    .line 442
     const-string v1, "allowableAccountTypes"
 
     invoke-virtual {p0}, Landroid/accounts/ChooseTypeAndAccountActivity;->getIntent()Landroid/content/Intent;
@@ -1140,16 +1138,17 @@
 
     move-result-object v4
 
-    .line 331
     .local v4, "accountType":Ljava/lang/String;
     if-eqz v4, :cond_6
 
-    .line 332
+    const/4 v11, 0x1
+
+    iput v11, p0, Landroid/accounts/ChooseTypeAndAccountActivity;->mPendingRequest:I
+
     invoke-virtual {p0, v4}, Landroid/accounts/ChooseTypeAndAccountActivity;->runAddAccountForAuthenticator(Ljava/lang/String;)V
 
     goto :goto_1
 
-    .line 336
     .end local v4    # "accountType":Ljava/lang/String;
     :cond_6
     const-string v11, "AccountChooser"

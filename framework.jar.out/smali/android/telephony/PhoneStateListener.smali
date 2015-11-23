@@ -124,6 +124,35 @@
     return-void
 .end method
 
+.method public constructor <init>(I)V
+    .locals 1
+    .param p1, "subscription"    # I
+
+    .prologue
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    new-instance v0, Landroid/telephony/PhoneStateListener$1;
+
+    invoke-direct {v0, p0}, Landroid/telephony/PhoneStateListener$1;-><init>(Landroid/telephony/PhoneStateListener;)V
+
+    iput-object v0, p0, Landroid/telephony/PhoneStateListener;->callback:Lcom/android/internal/telephony/IPhoneStateListener;
+
+    new-instance v0, Landroid/telephony/PhoneStateListener$2;
+
+    invoke-direct {v0, p0}, Landroid/telephony/PhoneStateListener$2;-><init>(Landroid/telephony/PhoneStateListener;)V
+
+    iput-object v0, p0, Landroid/telephony/PhoneStateListener;->mHandler:Landroid/os/Handler;
+
+    return-void
+.end method
+
+.method public updateSubscription(I)I
+    .locals 0
+    .param p1, "slotId"    # I
+
+    .prologue
+    return p1
+.end method
 
 # virtual methods
 .method public onCallForwardingIndicatorChanged(Z)V

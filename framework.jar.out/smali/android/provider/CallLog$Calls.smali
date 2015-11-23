@@ -92,6 +92,8 @@
 
 .field public static final VOICEMAIL_URI:Ljava/lang/String; = "voicemail_uri"
 
+.field public static final SUBSCRIPTION:Ljava/lang/String;
+
 
 # direct methods
 .method static constructor <clinit>()V
@@ -145,6 +147,10 @@
     move-result-object v0
 
     sput-object v0, Landroid/provider/CallLog$Calls;->CONTENT_URI_WITH_VOICEMAIL:Landroid/net/Uri;
+
+    sget-object v0, Lmiui/telephony/SubscriptionManager;->SLOT_KEY:Ljava/lang/String;
+
+    sput-object v0, Landroid/provider/CallLog$Calls;->SUBSCRIPTION:Ljava/lang/String;
 
     return-void
 .end method
@@ -208,6 +214,46 @@
     .param p5, "start"    # J
     .param p7, "duration"    # I
     .param p8, "infoex"    # Landroid/provider/CallLog$CallsEx;
+
+    .prologue
+    invoke-static {}, Lmiui/telephony/SubscriptionManager;->getDefault()Lmiui/telephony/SubscriptionManager;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lmiui/telephony/SubscriptionManager;->getDefaultSlotId()I
+
+    move-result v8
+
+    move-object v0, p0
+
+    move-object v1, p1
+
+    move-object v2, p2
+
+    move v3, p3
+
+    move v4, p4
+
+    move-wide v5, p5
+
+    move/from16 v7, p7
+
+    invoke-static/range {v0 .. v8}, Landroid/provider/CallLog$Calls;->addCall(Lcom/android/internal/telephony/CallerInfo;Landroid/content/Context;Ljava/lang/String;IIJII)Landroid/net/Uri;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public static addCall(Lcom/android/internal/telephony/CallerInfo;Landroid/content/Context;Ljava/lang/String;IIJII)Landroid/net/Uri;
+    .locals 16
+    .param p0, "ci"    # Lcom/android/internal/telephony/CallerInfo;
+    .param p1, "context"    # Landroid/content/Context;
+    .param p2, "number"    # Ljava/lang/String;
+    .param p3, "presentation"    # I
+    .param p4, "callType"    # I
+    .param p5, "start"    # J
+    .param p8, "subscription"    # I
 
     .prologue
     .line 368

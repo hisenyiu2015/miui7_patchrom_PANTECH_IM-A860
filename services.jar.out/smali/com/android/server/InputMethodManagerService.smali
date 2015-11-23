@@ -7795,6 +7795,27 @@
     throw v1
 .end method
 
+.method removeCustomTitle()V
+    .locals 3
+
+    .prologue
+    const/4 v2, 0x0
+
+    iget-object v0, p0, Lcom/android/server/InputMethodManagerService;->mDialogBuilder:Landroid/app/AlertDialog$Builder;
+
+    invoke-virtual {v0, v2}, Landroid/app/AlertDialog$Builder;->setCustomTitle(Landroid/view/View;)Landroid/app/AlertDialog$Builder;
+
+    iget-object v0, p0, Lcom/android/server/InputMethodManagerService;->mDialogBuilder:Landroid/app/AlertDialog$Builder;
+
+    sget v1, Lcom/android/internal/R$string;->select_input_method:I
+
+    invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
+
+    iput-object v2, p0, Lcom/android/server/InputMethodManagerService;->mSwitchingDialogTitleView:Landroid/view/View;
+
+    return-void
+.end method
+
 .method requestClientSessionLocked(Lcom/android/server/InputMethodManagerService$ClientState;)V
     .locals 9
     .param p1, "cs"    # Lcom/android/server/InputMethodManagerService$ClientState;

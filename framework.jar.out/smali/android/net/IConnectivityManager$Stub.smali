@@ -148,6 +148,9 @@
 
 .field static final TRANSACTION_updateLockdownVpn:I = 0x30
 
+.field static final TRANSACTION_startUsingNetworkFeatureMSim:I = 0x3c
+
+.field static final TRANSACTION_stopUsingNetworkFeatureMSim:I = 0x3d
 
 # direct methods
 .method public constructor <init>()V
@@ -2346,6 +2349,73 @@
 
     .line 42
     nop
+
+    :sswitch_miui_0
+    const-string v5, "android.net.IConnectivityManager"
+
+    invoke-virtual {p2, v5}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
+
+    invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v0
+
+    .restart local v0    # "_arg0":I
+    invoke-virtual {p2}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v1
+
+    .restart local v1    # "_arg1":Ljava/lang/String;
+    invoke-virtual {p2}, Landroid/os/Parcel;->readStrongBinder()Landroid/os/IBinder;
+
+    move-result-object v2
+
+    .restart local v2    # "_arg2":Landroid/os/IBinder;
+    invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v3
+
+    .local v3, "_arg3":I
+    invoke-virtual {p0, v0, v1, v2, v3}, Landroid/net/IConnectivityManager$Stub;->startUsingNetworkFeatureMSim(ILjava/lang/String;Landroid/os/IBinder;I)I
+
+    move-result v4
+
+    .restart local v4    # "_result":I
+    invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
+
+    invoke-virtual {p3, v4}, Landroid/os/Parcel;->writeInt(I)V
+
+    goto/16 :goto_0
+
+    :sswitch_miui_1
+    const-string v5, "android.net.IConnectivityManager"
+
+    invoke-virtual {p2, v5}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
+
+    invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v0
+
+    .restart local v0    # "_arg0":I
+    invoke-virtual {p2}, Landroid/os/Parcel;->readString()Ljava/lang/String;
+
+    move-result-object v1
+
+    .restart local v1    # "_arg1":Ljava/lang/String;
+    invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v2
+
+    .local v2, "_arg2":I
+    invoke-virtual {p0, v0, v1, v2}, Landroid/net/IConnectivityManager$Stub;->stopUsingNetworkFeatureMSim(ILjava/lang/String;I)I
+
+    move-result v4
+
+    .restart local v4    # "_result":I
+    invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
+
+    invoke-virtual {p3, v4}, Landroid/os/Parcel;->writeInt(I)V
+
+    goto/16 :goto_0
 
     :sswitch_data_0
     .sparse-switch

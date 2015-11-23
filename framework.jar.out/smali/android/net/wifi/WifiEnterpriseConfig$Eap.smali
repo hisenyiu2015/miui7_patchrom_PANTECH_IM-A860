@@ -94,6 +94,18 @@
 
     aput-object v2, v0, v1
 
+    const/4 v1, 0x4
+
+    const-string v2, "SIM"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x5
+
+    const-string v2, "AKA"
+
+    aput-object v2, v0, v1
+
     sput-object v0, Landroid/net/wifi/WifiEnterpriseConfig$Eap;->strings:[Ljava/lang/String;
 
     return-void
