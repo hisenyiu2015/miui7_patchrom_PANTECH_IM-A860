@@ -8645,6 +8645,10 @@
 
     invoke-virtual {v2}, Lcom/android/internal/telephony/uicc/AdnRecordCache;->reset()V
 
+    iget-object v2, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
+
+    invoke-virtual {v2}, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;->reset()V
+
     .line 268
     const-string v2, "SIMRecords: onRadioOffOrNotAvailable set \'gsm.sim.operator.numeric\' to operator=null"
 
@@ -9142,10 +9146,6 @@
     iput-object v2, v0, Landroid/os/AsyncResult;->exception:Ljava/lang/Throwable;
 
     invoke-virtual {p3}, Landroid/os/Message;->sendToTarget()V
-
-    const-string v1, "gsm.apn.sim.operator.numeric"
-
-    invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
 
     :goto_0
     return-void
