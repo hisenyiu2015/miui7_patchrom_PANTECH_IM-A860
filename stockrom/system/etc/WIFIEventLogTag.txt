@@ -1,0 +1,6 @@
+######DEFAULT TAG##########
+^50021^wifi_state_changed^
+^50022^wifi_event_handled^
+^50023^wifi_supplicant_state_changed^
+^51101^netstats_wifi_sample^
+######ADD TAG#############

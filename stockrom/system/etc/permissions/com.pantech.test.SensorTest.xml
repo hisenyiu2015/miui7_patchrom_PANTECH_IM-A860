@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<permissions>
+
+<permission name="android.permission.DSPS_TEST" >
+</permission>
+
+
+<library name="com.pantech.test.SensorTest" file="/system/framework/com.pantech.test.SensorTest.jar"/>
+
+</permissions>
+

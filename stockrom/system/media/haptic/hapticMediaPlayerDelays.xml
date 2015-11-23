@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+
+<delays>
+<preview delay="250"/>
+<alarm delay="0"/>
+<ringtone delay="50"/>
+<notification delay="0"/>
+</delays>
