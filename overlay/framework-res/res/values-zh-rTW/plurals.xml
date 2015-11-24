@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pinpuk_attempts">
+        <item quantity="other">SIM卡鎖定後，你有 %d 次機會嘗試解開.</item>
+        <item quantity="one">SIM卡鎖定後，你有 %d 次機會嘗試解開.</item>
+    </plurals>
+    <plurals name="num_seconds_ago">
+        <item quantity="other">%d 秒前</item>
+        <item quantity="one">1 秒前</item>
+    </plurals>
+    <plurals name="num_minutes_ago">
+        <item quantity="other">%d 分鍾前</item>
+        <item quantity="one">1 分鍾前</item>
+    </plurals>
+    <plurals name="num_hours_ago">
+        <item quantity="other">%d 小時前</item>
+        <item quantity="one">1 小時前</item>
+    </plurals>
+    <plurals name="last_num_days">
+        <item quantity="other">過去 %d 天</item>
+    </plurals>
+    <plurals name="num_days_ago">
+        <item quantity="other">%d 天前</item>
+        <item quantity="one">昨天</item>
+    </plurals>
+    <plurals name="in_num_seconds">
+        <item quantity="other">%d 秒後</item>
+        <item quantity="one">1 秒後</item>
+    </plurals>
+    <plurals name="in_num_minutes">
+        <item quantity="other">%d 分鍾後</item>
+        <item quantity="one">1 分鍾後</item>
+    </plurals>
+    <plurals name="in_num_hours">
+        <item quantity="other">%d 小時後</item>
+        <item quantity="one">1 小時後</item>
+    </plurals>
+    <plurals name="in_num_days">
+        <item quantity="other">%d 天後</item>
+        <item quantity="one">明天</item>
+    </plurals>
+    <plurals name="abbrev_num_seconds_ago">
+        <item quantity="other">%d 秒前</item>
+        <item quantity="one">1 秒前</item>
+    </plurals>
+    <plurals name="abbrev_num_minutes_ago">
+        <item quantity="other">%d 分鍾前</item>
+        <item quantity="one">1 分鍾前</item>
+    </plurals>
+    <plurals name="abbrev_num_hours_ago">
+        <item quantity="other">%d 小時前</item>
+        <item quantity="one">1 小時前</item>
+    </plurals>
+    <plurals name="abbrev_num_days_ago">
+        <item quantity="other">%d 天前</item>
+        <item quantity="one">昨天</item>
+    </plurals>
+    <plurals name="abbrev_in_num_seconds">
+        <item quantity="other">%d 秒後</item>
+        <item quantity="one">1 秒後</item>
+    </plurals>
+    <plurals name="abbrev_in_num_minutes">
+        <item quantity="other">%d 分鍾後</item>
+        <item quantity="one">1 分鍾後</item>
+    </plurals>
+    <plurals name="abbrev_in_num_hours">
+        <item quantity="other">%d 小時後</item>
+        <item quantity="one">1 小時後</item>
+    </plurals>
+    <plurals name="abbrev_in_num_days">
+        <item quantity="other">%d 天後</item>
+        <item quantity="one">明天</item>
+    </plurals>
+    <plurals name="duration_seconds">
+        <item quantity="other">%d 秒</item>
+        <item quantity="one">1 秒</item>
+    </plurals>
+    <plurals name="duration_minutes">
+        <item quantity="other">%d 分鍾</item>
+        <item quantity="one">1 分鍾</item>
+    </plurals>
+    <plurals name="duration_hours">
+        <item quantity="other">%d 小時</item>
+        <item quantity="one">1 小時</item>
+    </plurals>
+    <plurals name="wifi_available">
+        <item quantity="other">有可用的 Wi-Fi 網絡</item>
+        <item quantity="one">有可用的 Wi-Fi 網絡</item>
+    </plurals>
+    <plurals name="wifi_available_detailed">
+        <item quantity="other">打開可用的 Wi-Fi 網絡</item>
+        <item quantity="one">打開可用的 Wi-Fi 網絡</item>
+    </plurals>
+    <plurals name="matches_found">
+        <item quantity="other">第 %1$d 項，共 %2$d 項</item>
+        <item quantity="one">1 個匹配項</item>
+    </plurals>
+    <plurals name="restr_pin_countdown">
+        <item quantity="other">再試 %d 秒鍾</item>
+        <item quantity="one">再試 1 秒</item>
+    </plurals>
+</resources>
