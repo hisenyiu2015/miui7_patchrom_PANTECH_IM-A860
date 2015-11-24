@@ -61,4 +61,6 @@ local-pre-zip-misc:
 	cp -rf stockrom/system/bin/debuggerd $(ZIP_DIR)/system/bin/debuggerd
 	rm -rf $(ZIP_DIR)/system/bin/dexopt_vendor
 	cp -rf stockrom/system/bin/dexopt $(ZIP_DIR)/system/bin/dexopt
+	#fix DPI setting
+	echo "ro.sf.lcd_density=480" >> $(ZIP_DIR)/system/build.prop
 
