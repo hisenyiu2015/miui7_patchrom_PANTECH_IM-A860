@@ -54,3 +54,7 @@ fi
 if [ $1 = "DeskClock" ];then
 	changeID $1
 fi
+
+if [ $1 = "Music" ];then
+	applyPatch $1 $2
+fi
