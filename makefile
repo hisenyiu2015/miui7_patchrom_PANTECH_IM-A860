@@ -21,7 +21,8 @@ local-miui-removed-apps :=
 local-miui-removed-priv-apps := 
 
 local-miui-modified-apps := miuisystem MiuiHome TeleService SecurityCenter \
-			MiuiSystemUI DeskClock Music DownloadProvider
+			MiuiSystemUI DeskClock Music DownloadProvider \
+			XiaomiServiceFramework
 
 # Config density for co-developers to use the aaps with HDPI or XHDPI resource,
 # Default configrations are HDPI for ics branch and XHDPI for jellybean branch
