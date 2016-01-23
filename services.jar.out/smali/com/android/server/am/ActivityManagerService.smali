@@ -4225,6 +4225,12 @@
     .line 13319
     .end local p3    # "intent":Landroid/content/Intent;
     .local v50, "intent":Landroid/content/Intent;
+    move-object/from16 v0, p2
+
+    move-object/from16 v1, v50
+
+    invoke-virtual {v1, v0}, Landroid/content/Intent;->setSender(Ljava/lang/String;)V
+
     const/16 v4, 0x10
 
     move-object/from16 v0, v50
@@ -16494,6 +16500,20 @@
     invoke-direct {v0, v1, v2, v4}, Lcom/android/server/am/ActivityManagerService;->removeUriPermissionsForPackageLocked(Ljava/lang/String;IZ)V
 
     .line 4712
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, p1
+
+    move/from16 v2, p7
+
+    move/from16 v3, p5
+
+    move/from16 v4, v17
+
+    invoke-direct {v0, v1, v2, v3, v4}, Lcom/android/server/am/ActivityManagerService;->forceStopPackageLocked_Hook1(Ljava/lang/String;IZZ)Z
+
+    move-result v17
+
     if-nez p1, :cond_1a
 
     .line 4717

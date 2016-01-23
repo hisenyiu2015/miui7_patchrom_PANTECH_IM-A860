@@ -1828,7 +1828,7 @@
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual/range {v23 .. v23}, Ljava/io/File;->getPath()Ljava/lang/String;
+    invoke-virtual/range {v24 .. v24}, Ljava/io/File;->getPath()Ljava/lang/String;
 
     move-result-object v3
 
@@ -2496,7 +2496,7 @@
 
     invoke-interface/range {v37 .. v37}, Ljava/util/Iterator;->remove()V
 
-    invoke-static/range {v35 .. v35}, Lcom/android/server/pm/PackageManagerServiceInjector;->removePackageFromSharedUser(Lcom/android/server/pm/PackageSetting;)V
+    invoke-static/range {v36 .. v36}, Lcom/android/server/pm/PackageManagerServiceInjector;->removePackageFromSharedUser(Lcom/android/server/pm/PackageSetting;)V
 
     new-instance v2, Ljava/lang/StringBuilder;
 
@@ -17614,6 +17614,25 @@
     .line 4170
     .restart local p1    # "pkg":Landroid/content/pm/PackageParser$Package;
     :cond_1
+    const-string v3, "install"
+
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, p1
+
+    move-object/from16 v2, v58
+
+    invoke-direct {v0, v1, v2, v3}, Lcom/android/server/pm/PackageManagerService;->tryIgnorePackage(Landroid/content/pm/PackageParser$Package;Ljava/io/File;Ljava/lang/String;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_miui_20
+
+    const/16 p1, 0x0
+
+    return-object p1
+
+    :cond_miui_20
     move-object/from16 v0, v58
 
     move-object/from16 v1, p0

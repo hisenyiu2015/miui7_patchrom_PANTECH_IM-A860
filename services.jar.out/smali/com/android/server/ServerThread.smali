@@ -928,9 +928,9 @@
     invoke-static {v7, v9}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 297
-    new-instance v6, Lcom/android/server/LightsService;
+    new-instance v6, Lcom/android/server/MiuiLightsService;
 
-    invoke-direct {v6, v5}, Lcom/android/server/LightsService;-><init>(Landroid/content/Context;)V
+    invoke-direct {v6, v5}, Lcom/android/server/MiuiLightsService;-><init>(Landroid/content/Context;)V
     :try_end_c
     .catch Ljava/lang/RuntimeException; {:try_start_c .. :try_end_c} :catch_2
 
@@ -1099,13 +1099,13 @@
     invoke-static {v7, v9}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 327
-    new-instance v20, Lcom/android/server/input/InputManagerService;
+    new-instance v20, Lcom/android/server/input/MiuiInputManagerService;
 
     move-object/from16 v0, v20
 
     move-object/from16 v1, v21
 
-    invoke-direct {v0, v5, v1}, Lcom/android/server/input/InputManagerService;-><init>(Landroid/content/Context;Landroid/os/Handler;)V
+    invoke-direct {v0, v5, v1}, Lcom/android/server/input/MiuiInputManagerService;-><init>(Landroid/content/Context;Landroid/os/Handler;)V
     :try_end_11
     .catch Ljava/lang/RuntimeException; {:try_start_11 .. :try_end_11} :catch_5b
 
@@ -2417,6 +2417,22 @@
     move-object/from16 v0, v156
 
     invoke-static {v7, v0}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
+
+    const-string v7, "miui.usb.service"
+
+    new-instance v9, Lcom/miui/server/MiuiUsbService;
+
+    invoke-direct {v9, v5}, Lcom/miui/server/MiuiUsbService;-><init>(Landroid/content/Context;)V
+
+    invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
+
+    const-string v7, "miui.os.servicemanager"
+
+    new-instance v9, Landroid/os/MiuiServiceManagerInternal;
+
+    invoke-direct {v9}, Landroid/os/MiuiServiceManagerInternal;-><init>()V
+
+    invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
     :try_end_41
     .catch Ljava/lang/Throwable; {:try_start_41 .. :try_end_41} :catch_43
 
@@ -2461,6 +2477,10 @@
     .restart local v141    # "serial":Lcom/android/server/SerialService;
     :cond_17
     :goto_2f
+    move/from16 v0, v24
+
+    invoke-static {v5, v0}, Lcom/android/server/SystemServerInjector;->addExtraServices(Landroid/content/Context;Z)V
+
     :try_start_44
     const-string v7, "SystemServer"
 
@@ -2968,6 +2988,22 @@
     .line 910
     :cond_21
     :goto_43
+    move-object/from16 v0, p0
+
+    iget-object v7, v0, Lcom/android/server/ServerThread;->mSystemServiceManager:Lcom/android/server/SystemServiceManager;
+
+    const-class v9, Lcom/android/server/job/JobSchedulerService;
+
+    invoke-virtual {v7, v9}, Lcom/android/server/SystemServiceManager;->startService(Ljava/lang/Class;)Lcom/android/server/SystemService;
+
+    move-object/from16 v0, p0
+
+    iget-object v7, v0, Lcom/android/server/ServerThread;->mSystemServiceManager:Lcom/android/server/SystemServiceManager;
+
+    const/16 v9, 0x1f4
+
+    invoke-virtual {v7, v9}, Lcom/android/server/SystemServiceManager;->startBootPhase(I)V
+
     :try_start_5d
     invoke-virtual/range {v166 .. v166}, Lcom/android/server/wm/WindowManagerService;->systemReady()V
     :try_end_5d

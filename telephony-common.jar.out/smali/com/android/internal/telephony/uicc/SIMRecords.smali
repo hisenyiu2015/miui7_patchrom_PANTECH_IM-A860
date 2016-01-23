@@ -1297,7 +1297,7 @@
 
     iget-object v2, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mSpn:Ljava/lang/String;
 
-    invoke-direct {p0, v1, v2}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {p0, v1, v2}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty_gary(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 1570
     sget-object v1, Lcom/android/internal/telephony/uicc/SIMRecords$GetSpnFsmState;->IDLE:Lcom/android/internal/telephony/uicc/SIMRecords$GetSpnFsmState;
@@ -1393,7 +1393,7 @@
 
     iget-object v2, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mSpn:Ljava/lang/String;
 
-    invoke-direct {p0, v1, v2}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {p0, v1, v2}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty_gary(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 1591
     sget-object v1, Lcom/android/internal/telephony/uicc/SIMRecords$GetSpnFsmState;->IDLE:Lcom/android/internal/telephony/uicc/SIMRecords$GetSpnFsmState;
@@ -1484,7 +1484,7 @@
 
     iget-object v2, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mSpn:Ljava/lang/String;
 
-    invoke-direct {p0, v1, v2}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {p0, v1, v2}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty_gary(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 1611
     .end local v0    # "data":[B
@@ -2140,7 +2140,7 @@
     return-void
 .end method
 
-.method private setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+.method private setSystemProperty_gary(Ljava/lang/String;Ljava/lang/String;)V
     .locals 1
     .param p1, "key"    # Ljava/lang/String;
     .param p2, "val"    # Ljava/lang/String;
@@ -7910,7 +7910,7 @@
     .line 1323
     const-string v1, "gsm.sim.operator.numeric"
 
-    invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty_gary(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 1324
     const-string v1, "gsm.apn.sim.operator.numeric"
@@ -8167,6 +8167,10 @@
 
     invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/AdnRecordCache;->reset()V
 
+    iget-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
+
+    invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;->reset()V
+
     .line 238
     const-string v0, "SIMRecords: onRadioOffOrNotAvailable set \'gsm.sim.operator.numeric\' to operator=null"
 
@@ -8175,7 +8179,7 @@
     .line 239
     const-string v0, "gsm.sim.operator.numeric"
 
-    invoke-direct {p0, v0, v1}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {p0, v0, v1}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty_gary(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 240
     const-string v0, "gsm.apn.sim.operator.numeric"
@@ -8185,12 +8189,12 @@
     .line 241
     const-string v0, "gsm.sim.operator.alpha"
 
-    invoke-direct {p0, v0, v1}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {p0, v0, v1}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty_gary(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 242
     const-string v0, "gsm.sim.operator.iso-country"
 
-    invoke-direct {p0, v0, v1}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-direct {p0, v0, v1}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty_gary(Ljava/lang/String;Ljava/lang/String;)V
 
     .line 247
     const/4 v0, 0x0
@@ -8664,10 +8668,6 @@
     iput-object v2, v0, Landroid/os/AsyncResult;->exception:Ljava/lang/Throwable;
 
     invoke-virtual {p3}, Landroid/os/Message;->sendToTarget()V
-
-    const-string v1, "gsm.apn.sim.operator.numeric"
-
-    invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
 
     :goto_0
     return-void

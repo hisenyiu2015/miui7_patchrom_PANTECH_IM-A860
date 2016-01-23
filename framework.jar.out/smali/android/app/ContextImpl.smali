@@ -2672,6 +2672,14 @@
 
     iput-object v0, v6, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
 
+    iput-object v0, v6, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
+
+    iget-object v1, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    iget-object v1, v1, Landroid/app/LoadedApk;->mPackageName:Ljava/lang/String;
+
+    invoke-static {v0, v1}, Landroid/miui/ResourcesManager;->initMiuiResource(Landroid/content/res/Resources;Ljava/lang/String;)V
+
     return-object v6
 .end method
 
@@ -2735,6 +2743,14 @@
     move-result-object v0
 
     iput-object v0, v6, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
+
+    iput-object v0, v6, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
+
+    iget-object v1, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    iget-object v1, v1, Landroid/app/LoadedApk;->mPackageName:Ljava/lang/String;
+
+    invoke-static {v0, v1}, Landroid/miui/ResourcesManager;->initMiuiResource(Landroid/content/res/Resources;Ljava/lang/String;)V
 
     return-object v6
 .end method
@@ -4594,6 +4610,14 @@
     move-result-object v0
 
     iput-object v0, p0, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
+
+    iget-object v0, p0, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
+
+    iget-object v1, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    iget-object v1, v1, Landroid/app/LoadedApk;->mPackageName:Ljava/lang/String;
+
+    invoke-static {v0, v1}, Landroid/miui/ResourcesManager;->initMiuiResource(Landroid/content/res/Resources;Ljava/lang/String;)V
 
     :goto_2
     iput-object p3, p0, Landroid/app/ContextImpl;->mMainThread:Landroid/app/ActivityThread;

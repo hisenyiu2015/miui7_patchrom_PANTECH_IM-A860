@@ -3014,6 +3014,16 @@
     goto :goto_0
 .end method
 
+.method public setContext(Landroid/content/Context;)V
+    .locals 0
+    .param p1, "context"    # Landroid/content/Context;
+
+    .prologue
+    iput-object p1, p0, Landroid/telephony/TelephonyManager;->mContext:Landroid/content/Context;
+
+    return-void
+.end method
+
 .method public static from(Landroid/content/Context;I)Landroid/telephony/TelephonyManager;
     .locals 1
     .param p0, "context"    # Landroid/content/Context;

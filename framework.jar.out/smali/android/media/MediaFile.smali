@@ -1253,10 +1253,12 @@
 .end method
 
 .method public static isAudioFileType(I)Z
-    .locals 2
+    .locals 3
     .param p0, "fileType"    # I
 
     .prologue
+    const/16 v2, 0x3e9
+
     const/4 v0, 0x1
 
     .line 272
@@ -1276,13 +1278,9 @@
     if-le p0, v1, :cond_2
 
     :cond_1
-    const/16 v1, 0x12c
+    if-lt p0, v2, :cond_3
 
-    if-lt p0, v1, :cond_3
-
-    const/16 v1, 0x131
-
-    if-gt p0, v1, :cond_3
+    if-gt p0, v2, :cond_3
 
     :cond_2
     :goto_0

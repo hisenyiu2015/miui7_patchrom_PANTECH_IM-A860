@@ -743,6 +743,22 @@
 
     .line 624
     :try_start_0
+    move-object/from16 v1, p3
+
+    move-object/from16 v2, p5
+
+    move/from16 v3, p6
+
+    invoke-static {v1, v2, v3}, Lcom/android/server/power/PowerManagerServiceInjector;->checkWakelockBlocked(Ljava/lang/String;Landroid/os/WorkSource;I)Z
+
+    move-result v5
+
+    if-eqz v5, :cond_0
+
+    monitor-exit v12
+
+    return-void
+
     iget-object v2, p0, Lcom/android/server/power/PowerManagerService;->mBlockedUids:Ljava/util/ArrayList;
 
     new-instance v3, Ljava/lang/Integer;
@@ -1444,7 +1460,7 @@
 
     .line 1097
     :try_start_0
-    invoke-direct {p0, p1, p2, p3}, Lcom/android/server/power/PowerManagerService;->goToSleepNoUpdateLocked(JI)Z
+    invoke-virtual {p0, p1, p2, p3}, Lcom/android/server/power/PowerManagerService;->goToSleepNoUpdateLocked(JI)Z
 
     move-result v0
 
@@ -1471,7 +1487,7 @@
     throw v0
 .end method
 
-.method private goToSleepNoUpdateLocked(JI)Z
+.method goToSleepNoUpdateLocked(JI)Z
     .locals 8
     .param p1, "eventTime"    # J
     .param p3, "reason"    # I
@@ -1480,6 +1496,8 @@
     const/4 v4, 0x1
 
     const/4 v5, 0x0
+
+    invoke-direct {p0}, Lcom/android/server/power/PowerManagerService;->checkIfBootAnimationFinished()V
 
     .line 1109
     iget-wide v6, p0, Lcom/android/server/power/PowerManagerService;->mLastWakeTime:J
@@ -1627,6 +1645,8 @@
     .line 1148
     .end local v3    # "wakeLock":Lcom/android/server/power/PowerManagerService$WakeLock;
     :cond_2
+    invoke-static {p3}, Lcom/android/server/power/PowerManagerServiceInjector;->checkWhenSleepRequestedLocked(I)V
+
     const/16 v5, 0xaa4
 
     invoke-static {v5, v2}, Landroid/util/EventLog;->writeEvent(II)I
@@ -1737,7 +1757,7 @@
 
     move-result-wide v0
 
-    invoke-direct {p0, v0, v1, v2}, Lcom/android/server/power/PowerManagerService;->goToSleepNoUpdateLocked(JI)Z
+    invoke-virtual {p0, v0, v1, v2}, Lcom/android/server/power/PowerManagerService;->goToSleepNoUpdateLocked(JI)Z
 
     .line 1701
     invoke-direct {p0}, Lcom/android/server/power/PowerManagerService;->updatePowerStateLocked()V
@@ -2069,7 +2089,7 @@
 .end method
 
 .method private handleUserActivityTimeout()V
-    .locals 2
+    .locals 6
 
     .prologue
     .line 1485
@@ -2086,6 +2106,29 @@
     iput v0, p0, Lcom/android/server/power/PowerManagerService;->mDirty:I
 
     .line 1491
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v2
+
+    iget-wide v4, p0, Lcom/android/server/power/PowerManagerService;->mLastUserActivityTime:J
+
+    sub-long/2addr v2, v4
+
+    invoke-direct {p0}, Lcom/android/server/power/PowerManagerService;->getScreenOffTimeoutLocked()I
+
+    move-result v0
+
+    int-to-long v4, v0
+
+    cmp-long v0, v2, v4
+
+    if-ltz v0, :cond_miui_0
+
+    iget v0, p0, Lcom/android/server/power/PowerManagerService;->mStayOnWhilePluggedInSetting:I
+
+    invoke-static {v0}, Lcom/android/server/power/PowerManagerServiceInjector;->checkUserActivityTimeoutLocked(I)V
+
+    :cond_miui_0
     invoke-direct {p0}, Lcom/android/server/power/PowerManagerService;->updatePowerStateLocked()V
 
     .line 1492
@@ -2860,7 +2903,7 @@
     return-void
 .end method
 
-.method private releaseWakeLockInternal(Landroid/os/IBinder;I)V
+.method releaseWakeLockInternal(Landroid/os/IBinder;I)V
     .locals 5
     .param p1, "lock"    # Landroid/os/IBinder;
     .param p2, "flags"    # I
@@ -2871,23 +2914,6 @@
     monitor-enter v3
 
     :try_start_0
-    move-object/from16 v0, p3
-
-    move-object/from16 v1, p5
-
-    move/from16 v2, p6
-
-    invoke-static {v0, v1, v2}, Lcom/android/server/power/PowerManagerServiceInjector;->checkWakelockBlocked(Ljava/lang/String;Landroid/os/WorkSource;I)Z
-
-    move-result v4
-
-    if-eqz v4, :cond_miui_0
-
-    monitor-exit v11
-
-    return-void
-
-    :cond_miui_0
     invoke-direct {p0, p1}, Lcom/android/server/power/PowerManagerService;->findWakeLockIndexLocked(Landroid/os/IBinder;)I
 
     move-result v0
@@ -3128,29 +3154,6 @@
 
     iput v0, p0, Lcom/android/server/power/PowerManagerService;->mDirty:I
 
-    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
-
-    move-result-wide v2
-
-    iget-wide v4, p0, Lcom/android/server/power/PowerManagerService;->mLastUserActivityTime:J
-
-    sub-long/2addr v2, v4
-
-    invoke-direct {p0}, Lcom/android/server/power/PowerManagerService;->getScreenOffTimeoutLocked()I
-
-    move-result v0
-
-    int-to-long v4, v0
-
-    cmp-long v0, v2, v4
-
-    if-ltz v0, :cond_miui_0
-
-    iget v0, p0, Lcom/android/server/power/PowerManagerService;->mStayOnWhilePluggedInSetting:I
-
-    invoke-static {v0}, Lcom/android/server/power/PowerManagerServiceInjector;->checkUserActivityTimeoutLocked(I)V
-
-    :cond_miui_0
     invoke-direct {p0}, Lcom/android/server/power/PowerManagerService;->updatePowerStateLocked()V
 
     monitor-exit v1
@@ -4888,6 +4891,17 @@
 
     .line 802
     .local v0, "index":I
+    invoke-static {}, Lcom/android/server/power/PowerManagerServiceInjector;->checkWakelockBlockedEnabled()Z
+
+    move-result v4
+
+    if-eqz v4, :cond_miui_0
+
+    monitor-exit v5
+
+    return-void
+
+    :cond_miui_0
     const-string v4, "persist.cne.feature"
 
     const/4 v6, 0x0
@@ -5047,7 +5061,7 @@
     :cond_1
     const/4 v3, 0x2
 
-    invoke-direct {p0, v1, v2, v3}, Lcom/android/server/power/PowerManagerService;->goToSleepNoUpdateLocked(JI)Z
+    invoke-virtual {p0, v1, v2, v3}, Lcom/android/server/power/PowerManagerService;->goToSleepNoUpdateLocked(JI)Z
 
     move-result v0
 
@@ -5131,6 +5145,8 @@
     const/4 v0, 0x1
 
     const/4 v1, 0x0
+
+    invoke-static {}, Lcom/android/server/power/ButtonLightController;->setButtonLightTimeout()V
 
     .line 987
     iget-wide v2, p0, Lcom/android/server/power/PowerManagerService;->mLastSleepTime:J
@@ -7181,17 +7197,6 @@
 
     if-lez v2, :cond_0
 
-    invoke-static {}, Lcom/android/server/power/PowerManagerServiceInjector;->checkWakelockBlockedEnabled()Z
-
-    move-result v2
-
-    if-eqz v2, :cond_miui_0
-
-    monitor-exit v3
-
-    return-void
-
-    :cond_miui_0
     new-instance v2, Ljava/lang/IllegalArgumentException;
 
     const-string v3, "event time must not be in the future"
@@ -8538,7 +8543,7 @@
 
     iget v4, v1, Lcom/android/server/power/PowerManagerService$WakeLock;->mFlags:I
 
-    invoke-direct {p0, v2, v4}, Lcom/android/server/power/PowerManagerService;->releaseWakeLockInternal(Landroid/os/IBinder;I)V
+    invoke-virtual {p0, v2, v4}, Lcom/android/server/power/PowerManagerService;->releaseWakeLockInternal(Landroid/os/IBinder;I)V
 
     add-int/lit8 v0, v0, -0x1
 
@@ -8564,7 +8569,7 @@
 
     iget v4, v1, Lcom/android/server/power/PowerManagerService$WakeLock;->mFlags:I
 
-    invoke-direct {p0, v2, v4}, Lcom/android/server/power/PowerManagerService;->releaseWakeLockInternal(Landroid/os/IBinder;I)V
+    invoke-virtual {p0, v2, v4}, Lcom/android/server/power/PowerManagerService;->releaseWakeLockInternal(Landroid/os/IBinder;I)V
 
     add-int/lit8 v0, v0, -0x1
 
