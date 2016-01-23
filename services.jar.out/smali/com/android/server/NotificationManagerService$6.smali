@@ -263,17 +263,25 @@
 
     if-nez v4, :cond_2
 
-    .line 1734
     move-object/from16 v0, p0
 
     iget-boolean v4, v0, Lcom/android/server/NotificationManagerService$6;->val$isSystemNotification:Z
 
-    if-nez v4, :cond_2
+    if-eqz v4, :cond_miui
 
-    .line 1735
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/server/NotificationManagerService$6;->val$pkg:Ljava/lang/String;
+
+    invoke-static {v4}, Lmiui/util/NotificationFilterHelper;->canSystemNotificationBeBlocked(Ljava/lang/String;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_2
+
+    :cond_miui
     const/16 v9, -0x3e8
 
-    .line 1736
     const-string v4, "NotificationService"
 
     new-instance v5, Ljava/lang/StringBuilder;

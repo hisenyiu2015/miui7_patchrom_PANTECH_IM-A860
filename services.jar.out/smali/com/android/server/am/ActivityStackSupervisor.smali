@@ -8253,6 +8253,55 @@
     .local v23, "aInfo":Landroid/content/pm/ActivityInfo;
     move-object/from16 v0, p0
 
+    iget-object v2, v0, Lcom/android/server/am/ActivityStackSupervisor;->mContext:Landroid/content/Context;
+
+    move-object/from16 v4, v23
+
+    invoke-static {v2, v4, v3}, Lcom/android/server/am/ExtraActivityManagerService;->checkAccessControl(Landroid/content/Context;Landroid/content/pm/ActivityInfo;Landroid/content/Intent;)Landroid/content/Intent;
+
+    move-result-object v3
+
+    move-object/from16 p4, v3
+
+    move-object/from16 v5, p4
+
+    move-object/from16 v6, p0
+
+    move-object/from16 v7, p10
+
+    move-object/from16 v8, p11
+
+    move/from16 v9, p15
+
+    invoke-static/range {v4 .. v9}, Lcom/android/server/am/ExtraActivityManagerService;->resolveCheckIntent(Landroid/content/pm/ActivityInfo;Landroid/content/Intent;Lcom/android/server/am/ActivityStackSupervisor;Ljava/lang/String;Landroid/os/ParcelFileDescriptor;I)Landroid/content/pm/ActivityInfo;
+
+    move-result-object v23
+
+    move-object/from16 v4, v23
+
+    move-object/from16 v0, p0
+
+    iget-object v5, v0, Lcom/android/server/am/ActivityStackSupervisor;->mContext:Landroid/content/Context;
+
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-boolean v6, v6, Lcom/android/server/am/ActivityManagerService;->mSystemReady:Z
+
+    invoke-static {v5, v4, v6}, Lcom/android/server/am/ExtraActivityManagerService;->checkRunningCompatibility(Landroid/content/Context;Landroid/content/pm/ActivityInfo;Z)Z
+
+    move-result v2
+
+    if-nez v2, :cond_miui_1
+
+    const/16 v32, 0x5
+
+    return v32
+
+    :cond_miui_1
+    move-object/from16 v0, p0
+
     iget-object v0, v0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
 
     move-object/from16 v35, v0

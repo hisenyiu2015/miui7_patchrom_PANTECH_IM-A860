@@ -2555,7 +2555,7 @@
 .end method
 
 .method private addFreeWindowToListLocked(Lcom/android/server/wm/WindowState;)V
-    .locals 4
+    .locals 5
     .param p1, "win"    # Lcom/android/server/wm/WindowState;
 
     .prologue
@@ -2587,9 +2587,13 @@
 
     check-cast v3, Lcom/android/server/wm/WindowState;
 
-    iget v3, v3, Lcom/android/server/wm/WindowState;->mBaseLayer:I
+    iget v4, v3, Lcom/android/server/wm/WindowState;->mBaseLayer:I
 
-    if-gt v3, v1, :cond_1
+    if-gt v4, v1, :cond_1
+
+    iget-boolean v4, v3, Lcom/android/server/wm/WindowState;->mIsImWindow:Z
+
+    if-nez v4, :cond_1
 
     .line 1075
     :cond_0
@@ -6851,12 +6855,29 @@
 
     invoke-virtual {v0, v1}, Lcom/android/server/wm/WindowStateAnimator;->setSurfaceBoundariesLocked(Z)V
 
-    .line 9120
+    iget-object v2, v3, Lcom/android/server/wm/WindowState;->mAttrs:Landroid/view/WindowManager$LayoutParams;
+
+    iget v2, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    and-int/lit8 v2, v2, 0x4
+
+    if-eqz v2, :cond_miui_0
+
+    move-object/from16 v0, v52
+
+    iget-object v2, v0, Lcom/android/server/wm/WindowStateAnimator;->mSurfaceControl:Landroid/view/SurfaceControl;
+
+    const/16 v8, 0x80
+
+    const/16 v9, 0x80
+
+    invoke-virtual {v2, v8, v9}, Landroid/view/SurfaceControl;->setFlags(II)V
+
+    :goto_miui_0
     iget-object v0, v3, Lcom/android/server/wm/WindowState;->mAppToken:Lcom/android/server/wm/AppWindowToken;
 
     move-object/from16 v19, v0
 
-    .line 9127
     .local v19, "atoken":Lcom/android/server/wm/AppWindowToken;
     if-eqz v19, :cond_11
 
@@ -7692,6 +7713,19 @@
     const/16 v44, 0x0
 
     goto/16 :goto_8
+
+    :cond_miui_0
+    move-object/from16 v0, v52
+
+    iget-object v2, v0, Lcom/android/server/wm/WindowStateAnimator;->mSurfaceControl:Landroid/view/SurfaceControl;
+
+    const/4 v8, 0x0
+
+    const/16 v9, 0x80
+
+    invoke-virtual {v2, v8, v9}, Landroid/view/SurfaceControl;->setFlags(II)V
+    
+    goto :goto_miui_0
 
     .line 9160
     .restart local v19    # "atoken":Lcom/android/server/wm/AppWindowToken;
@@ -19701,15 +19735,16 @@
 
     .line 6962
     .local v4, "volumeDownState":I
-    if-gtz v1, :cond_1
+    if-lez v1, :cond_miui_0
 
+    if-gtz v4, :cond_1
+
+    :cond_miui_0
     if-gtz v2, :cond_1
 
     if-gtz v0, :cond_1
 
-    if-gtz v3, :cond_1
-
-    if-lez v4, :cond_2
+    if-lez v3, :cond_2
 
     :cond_1
     move v5, v6
@@ -24712,6 +24747,36 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     throw v1
+.end method
+
+.method public getFocusedWindowType()I
+    .locals 2
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/wm/WindowManagerService;->mCurrentFocus:Lcom/android/server/wm/WindowState;
+
+    .local v0, "focus":Lcom/android/server/wm/WindowState;
+    if-eqz v0, :cond_0
+
+    invoke-virtual {v0}, Lcom/android/server/wm/WindowState;->getAttrs()Landroid/view/WindowManager$LayoutParams;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_0
+
+    invoke-virtual {v0}, Lcom/android/server/wm/WindowState;->getAttrs()Landroid/view/WindowManager$LayoutParams;
+
+    move-result-object v1
+
+    iget v1, v1, Landroid/view/WindowManager$LayoutParams;->type:I
+
+    :goto_0
+    return v1
+
+    :cond_0
+    const/4 v1, 0x0
+
+    goto :goto_0
 .end method
 
 .method public getInitialDisplayDensity(I)I
@@ -30352,6 +30417,21 @@
     move-exception v11
 
     goto :goto_1
+.end method
+
+.method public reboot()V
+    .locals 3
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/wm/WindowManagerService;->mContext:Landroid/content/Context;
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    invoke-static {v0, v1, v2}, Lcom/android/server/power/ShutdownThread;->reboot(Landroid/content/Context;Ljava/lang/String;Z)V
+
+    return-void
 .end method
 
 .method public rebootSafeMode(Z)V

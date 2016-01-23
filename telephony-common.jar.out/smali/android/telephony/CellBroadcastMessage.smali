@@ -1453,6 +1453,15 @@
     return v0
 .end method
 
+.method public getSubId()I
+    .locals 1
+
+    .prologue
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
 .method public isCmasMessage()Z
     .locals 1
 
@@ -1638,6 +1647,14 @@
     iput p1, p0, Landroid/telephony/CellBroadcastMessage;->mSubId:I
 
     .line 66
+    return-void
+.end method
+
+.method public setSubId(I)V
+    .locals 0
+    .param p1, "subId"    # I
+
+    .prologue
     return-void
 .end method
 

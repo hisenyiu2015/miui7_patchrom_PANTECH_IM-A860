@@ -6,7 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/android/server/LockSettingsService$DatabaseHelper;
+        Lcom/android/server/LockSettingsService$DatabaseHelper;,
+        Lcom/android/server/LockSettingsService$Injector;
     }
 .end annotation
 
@@ -1366,6 +1367,167 @@
 
     move-result-object v2
 
+    .local v2, "hash":[B
+    invoke-static {v6, v2}, Lcom/android/server/LockSettingsService$Injector;->passwordToHash([B[B)[B
+
+    move-result-object v8
+
+    invoke-static {v6, v8}, Ljava/util/Arrays;->equals([B[B)Z
+
+    move-result v4
+
+    .local v4, "matched":Z
+    if-eqz v4, :cond_0
+
+    invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v8
+
+    if-nez v8, :cond_0
+
+    invoke-direct {p0, p1, p2}, Lcom/android/server/LockSettingsService;->maybeUpdateKeystore(Ljava/lang/String;I)V
+    :try_end_0
+    .catch Ljava/io/FileNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+    .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_1
+
+    goto :goto_0
+
+    .end local v1    # "got":I
+    .end local v2    # "hash":[B
+    .end local v4    # "matched":Z
+    .end local v5    # "raf":Ljava/io/RandomAccessFile;
+    .end local v6    # "stored":[B
+    :catch_0
+    move-exception v0
+
+    .local v0, "fnfe":Ljava/io/FileNotFoundException;
+    const-string v8, "LockSettingsService"
+
+    new-instance v9, Ljava/lang/StringBuilder;
+
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v10, "Cannot read file "
+
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v9
+
+    invoke-virtual {v9, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v9
+
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v9
+
+    invoke-static {v8, v9}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .end local v0    # "fnfe":Ljava/io/FileNotFoundException;
+    :goto_1
+    move v4, v7
+
+    goto :goto_0
+
+    :catch_1
+    move-exception v3
+
+    .local v3, "ioe":Ljava/io/IOException;
+    const-string v8, "LockSettingsService"
+
+    new-instance v9, Ljava/lang/StringBuilder;
+
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v10, "Cannot read file "
+
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v9
+
+    invoke-virtual {v9, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v9
+
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v9
+
+    invoke-static {v8, v9}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_1
+.end method
+
+.method public checkPattern(Ljava/lang/String;I)Z
+    .locals 11
+    .param p1, "pattern"    # Ljava/lang/String;
+    .param p2, "userId"    # I
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+
+    .prologue
+    const/4 v7, 0x1
+
+    invoke-direct {p0, p2}, Lcom/android/server/LockSettingsService;->checkPasswordReadPermission(I)V
+
+    :try_start_0
+    new-instance v5, Ljava/io/RandomAccessFile;
+
+    invoke-direct {p0, p2}, Lcom/android/server/LockSettingsService;->getLockPatternFilename(I)Ljava/lang/String;
+
+    move-result-object v8
+
+    const-string v9, "r"
+
+    invoke-direct {v5, v8, v9}, Ljava/io/RandomAccessFile;-><init>(Ljava/lang/String;Ljava/lang/String;)V
+
+    .local v5, "raf":Ljava/io/RandomAccessFile;
+    invoke-virtual {v5}, Ljava/io/RandomAccessFile;->length()J
+
+    move-result-wide v8
+
+    long-to-int v8, v8
+
+    new-array v6, v8, [B
+
+    .local v6, "stored":[B
+    const/4 v8, 0x0
+
+    array-length v9, v6
+
+    invoke-virtual {v5, v6, v8, v9}, Ljava/io/RandomAccessFile;->read([BII)I
+
+    move-result v1
+
+    .local v1, "got":I
+    invoke-virtual {v5}, Ljava/io/RandomAccessFile;->close()V
+
+    if-gtz v1, :cond_1
+
+    move v4, v7
+
+    .end local v1    # "got":I
+    .end local v5    # "raf":Ljava/io/RandomAccessFile;
+    .end local v6    # "stored":[B
+    :cond_0
+    :goto_0
+    return v4
+
+    .restart local v1    # "got":I
+    .restart local v5    # "raf":Ljava/io/RandomAccessFile;
+    .restart local v6    # "stored":[B
+    :cond_1
+    invoke-static {p1}, Lcom/android/internal/widget/LockPatternUtils;->stringToPattern(Ljava/lang/String;)Ljava/util/List;
+
+    move-result-object v8
+
+    invoke-static {v8}, Lcom/android/internal/widget/LockPatternUtils;->patternToHash(Ljava/util/List;)[B
+
+    move-result-object v2
+
     .line 339
     .local v2, "hash":[B
     invoke-static {v6, v2}, Ljava/util/Arrays;->equals([B[B)Z
@@ -1461,179 +1623,6 @@
     goto :goto_1
 .end method
 
-.method public checkPattern(Ljava/lang/String;I)Z
-    .locals 11
-    .param p1, "pattern"    # Ljava/lang/String;
-    .param p2, "userId"    # I
-    .annotation system Ldalvik/annotation/Throws;
-        value = {
-            Landroid/os/RemoteException;
-        }
-    .end annotation
-
-    .prologue
-    const/4 v7, 0x1
-
-    .line 298
-    invoke-direct {p0, p2}, Lcom/android/server/LockSettingsService;->checkPasswordReadPermission(I)V
-
-    .line 301
-    :try_start_0
-    new-instance v5, Ljava/io/RandomAccessFile;
-
-    invoke-direct {p0, p2}, Lcom/android/server/LockSettingsService;->getLockPatternFilename(I)Ljava/lang/String;
-
-    move-result-object v8
-
-    const-string v9, "r"
-
-    invoke-direct {v5, v8, v9}, Ljava/io/RandomAccessFile;-><init>(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 302
-    .local v5, "raf":Ljava/io/RandomAccessFile;
-    invoke-virtual {v5}, Ljava/io/RandomAccessFile;->length()J
-
-    move-result-wide v8
-
-    long-to-int v8, v8
-
-    new-array v6, v8, [B
-
-    .line 303
-    .local v6, "stored":[B
-    const/4 v8, 0x0
-
-    array-length v9, v6
-
-    invoke-virtual {v5, v6, v8, v9}, Ljava/io/RandomAccessFile;->read([BII)I
-
-    move-result v1
-
-    .line 304
-    .local v1, "got":I
-    invoke-virtual {v5}, Ljava/io/RandomAccessFile;->close()V
-
-    .line 305
-    if-gtz v1, :cond_1
-
-    move v4, v7
-
-    .line 321
-    .end local v1    # "got":I
-    .end local v5    # "raf":Ljava/io/RandomAccessFile;
-    .end local v6    # "stored":[B
-    :cond_0
-    :goto_0
-    return v4
-
-    .line 309
-    .restart local v1    # "got":I
-    .restart local v5    # "raf":Ljava/io/RandomAccessFile;
-    .restart local v6    # "stored":[B
-    :cond_1
-    invoke-static {p1}, Lcom/android/internal/widget/LockPatternUtils;->stringToPattern(Ljava/lang/String;)Ljava/util/List;
-
-    move-result-object v8
-
-    invoke-static {v8}, Lcom/android/internal/widget/LockPatternUtils;->patternToHash(Ljava/util/List;)[B
-
-    move-result-object v2
-
-    .line 311
-    .local v2, "hash":[B
-    invoke-static {v6, v2}, Ljava/util/Arrays;->equals([B[B)Z
-
-    move-result v4
-
-    .line 312
-    .local v4, "matched":Z
-    if-eqz v4, :cond_0
-
-    invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-
-    move-result v8
-
-    if-nez v8, :cond_0
-
-    .line 313
-    invoke-direct {p0, p1, p2}, Lcom/android/server/LockSettingsService;->maybeUpdateKeystore(Ljava/lang/String;I)V
-    :try_end_0
-    .catch Ljava/io/FileNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
-    .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_1
-
-    goto :goto_0
-
-    .line 316
-    .end local v1    # "got":I
-    .end local v2    # "hash":[B
-    .end local v4    # "matched":Z
-    .end local v5    # "raf":Ljava/io/RandomAccessFile;
-    .end local v6    # "stored":[B
-    :catch_0
-    move-exception v0
-
-    .line 317
-    .local v0, "fnfe":Ljava/io/FileNotFoundException;
-    const-string v8, "LockSettingsService"
-
-    new-instance v9, Ljava/lang/StringBuilder;
-
-    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v10, "Cannot read file "
-
-    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v9
-
-    invoke-virtual {v9, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v9
-
-    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v9
-
-    invoke-static {v8, v9}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    .end local v0    # "fnfe":Ljava/io/FileNotFoundException;
-    :goto_1
-    move v4, v7
-
-    .line 321
-    goto :goto_0
-
-    .line 318
-    :catch_1
-    move-exception v3
-
-    .line 319
-    .local v3, "ioe":Ljava/io/IOException;
-    const-string v8, "LockSettingsService"
-
-    new-instance v9, Ljava/lang/StringBuilder;
-
-    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v10, "Cannot read file "
-
-    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v9
-
-    invoke-virtual {v9, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v9
-
-    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v9
-
-    invoke-static {v8, v9}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto :goto_1
-.end method
-
 .method public getBoolean(Ljava/lang/String;ZI)Z
     .locals 2
     .param p1, "key"    # Ljava/lang/String;
@@ -1646,17 +1635,14 @@
     .end annotation
 
     .prologue
-    .line 200
     invoke-direct {p0, p1, p3}, Lcom/android/server/LockSettingsService;->checkReadPermission(Ljava/lang/String;I)V
 
-    .line 202
     const/4 v1, 0x0
 
     invoke-direct {p0, p1, v1, p3}, Lcom/android/server/LockSettingsService;->readFromDb(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 203
     .local v0, "value":Ljava/lang/String;
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
@@ -1709,17 +1695,14 @@
     .end annotation
 
     .prologue
-    .line 209
     invoke-direct {p0, p1, p4}, Lcom/android/server/LockSettingsService;->checkReadPermission(Ljava/lang/String;I)V
 
-    .line 211
     const/4 v1, 0x0
 
     invoke-direct {p0, p1, v1, p4}, Lcom/android/server/LockSettingsService;->readFromDb(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 212
     .local v0, "value":Ljava/lang/String;
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
@@ -1752,10 +1735,8 @@
     .end annotation
 
     .prologue
-    .line 217
     invoke-direct {p0, p1, p3}, Lcom/android/server/LockSettingsService;->checkReadPermission(Ljava/lang/String;I)V
 
-    .line 219
     invoke-direct {p0, p1, p2, p3}, Lcom/android/server/LockSettingsService;->readFromDb(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;
 
     move-result-object v0
@@ -1773,7 +1754,6 @@
     .end annotation
 
     .prologue
-    .line 252
     new-instance v0, Ljava/io/File;
 
     invoke-direct {p0, p1}, Lcom/android/server/LockSettingsService;->getLockPasswordFilename(I)Ljava/lang/String;
@@ -1813,7 +1793,6 @@
     .end annotation
 
     .prologue
-    .line 259
     new-instance v0, Ljava/io/File;
 
     invoke-direct {p0, p1}, Lcom/android/server/LockSettingsService;->getLockPatternFilename(I)Ljava/lang/String;
@@ -1848,17 +1827,14 @@
     .param p1, "userId"    # I
 
     .prologue
-    .line 354
     invoke-direct {p0, p1}, Lcom/android/server/LockSettingsService;->checkWritePermission(I)V
 
-    .line 356
     iget-object v2, p0, Lcom/android/server/LockSettingsService;->mOpenHelper:Lcom/android/server/LockSettingsService$DatabaseHelper;
 
     invoke-virtual {v2}, Lcom/android/server/LockSettingsService$DatabaseHelper;->getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;
 
     move-result-object v0
 
-    .line 358
     .local v0, "db":Landroid/database/sqlite/SQLiteDatabase;
     :try_start_0
     new-instance v1, Ljava/io/File;
@@ -1869,7 +1845,6 @@
 
     invoke-direct {v1, v2}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 359
     .local v1, "file":Ljava/io/File;
     invoke-virtual {v1}, Ljava/io/File;->exists()Z
 
@@ -1877,10 +1852,8 @@
 
     if-eqz v2, :cond_0
 
-    .line 360
     invoke-virtual {v1}, Ljava/io/File;->delete()Z
 
-    .line 362
     :cond_0
     new-instance v1, Ljava/io/File;
 
@@ -1891,7 +1864,6 @@
 
     invoke-direct {v1, v2}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 363
     .restart local v1    # "file":Ljava/io/File;
     invoke-virtual {v1}, Ljava/io/File;->exists()Z
 
@@ -1899,14 +1871,11 @@
 
     if-eqz v2, :cond_1
 
-    .line 364
     invoke-virtual {v1}, Ljava/io/File;->delete()Z
 
-    .line 367
     :cond_1
     invoke-virtual {v0}, Landroid/database/sqlite/SQLiteDatabase;->beginTransaction()V
 
-    .line 368
     const-string v2, "locksettings"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1937,18 +1906,14 @@
 
     invoke-virtual {v0, v2, v3, v4}, Landroid/database/sqlite/SQLiteDatabase;->delete(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)I
 
-    .line 369
     invoke-virtual {v0}, Landroid/database/sqlite/SQLiteDatabase;->setTransactionSuccessful()V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 371
     invoke-virtual {v0}, Landroid/database/sqlite/SQLiteDatabase;->endTransaction()V
 
-    .line 373
     return-void
 
-    .line 371
     .end local v1    # "file":Ljava/io/File;
     :catchall_0
     move-exception v2
@@ -1970,10 +1935,8 @@
     .end annotation
 
     .prologue
-    .line 179
     invoke-direct {p0, p3}, Lcom/android/server/LockSettingsService;->checkWritePermission(I)V
 
-    .line 181
     if-eqz p2, :cond_0
 
     const-string v0, "1"
@@ -1981,10 +1944,8 @@
     :goto_0
     invoke-direct {p0, p1, v0, p3}, Lcom/android/server/LockSettingsService;->writeToDb(Ljava/lang/String;Ljava/lang/String;I)V
 
-    .line 182
     return-void
 
-    .line 181
     :cond_0
     const-string v0, "0"
 
@@ -2002,13 +1963,11 @@
     .end annotation
 
     .prologue
-    .line 289
     invoke-direct {p0, p2}, Lcom/android/server/LockSettingsService;->checkWritePermission(I)V
 
-    .line 291
+    .line 313
     invoke-direct {p0, p1, p2}, Lcom/android/server/LockSettingsService;->maybeUpdateKeystore(Ljava/lang/String;I)V
 
-    .line 293
     invoke-direct {p0, p2}, Lcom/android/server/LockSettingsService;->getLockPasswordFilename(I)Ljava/lang/String;
 
     move-result-object v0
@@ -2086,6 +2045,28 @@
     invoke-direct {p0, p1, v0, p4}, Lcom/android/server/LockSettingsService;->writeToDb(Ljava/lang/String;Ljava/lang/String;I)V
 
     .line 189
+    return-void
+.end method
+
+.method public setRawLockPassword([BI)V
+    .locals 1
+    .param p1, "hash"    # [B
+    .param p2, "userId"    # I
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+
+    .prologue
+    invoke-direct {p0, p2}, Lcom/android/server/LockSettingsService;->checkWritePermission(I)V
+
+    invoke-direct {p0, p2}, Lcom/android/server/LockSettingsService;->getLockPasswordFilename(I)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0, p1}, Lcom/android/server/LockSettingsService;->writeFile(Ljava/lang/String;[B)V
+
     return-void
 .end method
 

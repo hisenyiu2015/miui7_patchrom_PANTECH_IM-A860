@@ -3651,7 +3651,7 @@
 .end method
 
 .method private updateLightsLocked()V
-    .locals 7
+    .locals 8
 
     .prologue
     .line 2236
@@ -3696,7 +3696,21 @@
 
     iget-boolean v5, p0, Lcom/android/server/NotificationManagerService;->mScreenOn:Z
 
-    if-eqz v5, :cond_3
+    if-nez v5, :cond_1
+
+    iget-object v5, p0, Lcom/android/server/NotificationManagerService;->mContext:Landroid/content/Context;
+
+    iget-object v6, p0, Lcom/android/server/NotificationManagerService;->mLedNotification:Lcom/android/server/NotificationManagerService$NotificationRecord;
+
+    iget-object v6, v6, Lcom/android/server/NotificationManagerService$NotificationRecord;->sbn:Landroid/service/notification/StatusBarNotification;
+
+    const-string v7, "_led"
+
+    invoke-static {v5, v6, v7}, Lmiui/util/NotificationFilterHelper;->isAllowed(Landroid/content/Context;Landroid/service/notification/StatusBarNotification;Ljava/lang/String;)Z
+
+    move-result v5
+
+    if-nez v5, :cond_3
 
     .line 2246
     :cond_1
@@ -3739,22 +3753,29 @@
 
     if-eqz v5, :cond_4
 
-    .line 2253
     iget v0, p0, Lcom/android/server/NotificationManagerService;->mDefaultNotificationColor:I
 
-    .line 2254
     iget v2, p0, Lcom/android/server/NotificationManagerService;->mDefaultNotificationLedOn:I
 
-    .line 2255
     iget v1, p0, Lcom/android/server/NotificationManagerService;->mDefaultNotificationLedOff:I
 
-    .line 2257
+    iget-object v5, p0, Lcom/android/server/NotificationManagerService;->mContext:Landroid/content/Context;
+
+    iget v6, p0, Lcom/android/server/NotificationManagerService;->mDefaultNotificationColor:I
+
+    invoke-static {v5, v3, v6}, Lcom/android/server/NotificationLightController;->updateNotificationLight(Landroid/content/Context;Landroid/app/Notification;I)V
+
+    iget v0, v3, Landroid/app/Notification;->ledARGB:I
+
+    iget v2, v3, Landroid/app/Notification;->ledOnMS:I
+
+    iget v1, v3, Landroid/app/Notification;->ledOffMS:I
+
     :cond_4
     iget-boolean v5, p0, Lcom/android/server/NotificationManagerService;->mNotificationPulseEnabled:Z
 
     if-eqz v5, :cond_2
 
-    .line 2259
     iget-object v5, p0, Lcom/android/server/NotificationManagerService;->mNotificationLight:Lcom/android/server/LightsService$Light;
 
     const/4 v6, 0x1
@@ -7540,4 +7561,14 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     throw v3
+.end method
+
+.method static synthetic access_updateNotificationPulse(Lcom/android/server/NotificationManagerService;)V
+    .locals 0
+    .param p0, "x0"    # Lcom/android/server/NotificationManagerService;
+
+    .prologue
+    invoke-direct {p0}, Lcom/android/server/NotificationManagerService;->updateNotificationPulse()V
+
+    return-void
 .end method

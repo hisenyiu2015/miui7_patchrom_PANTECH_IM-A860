@@ -985,6 +985,14 @@
 
     iput-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mAdnCache:Lcom/android/internal/telephony/uicc/AdnRecordCache;
 
+    new-instance v0, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
+
+    iget-object v1, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mFh:Lcom/android/internal/telephony/uicc/IccFileHandler;
+
+    invoke-direct {v0, v1}, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;-><init>(Lcom/android/internal/telephony/uicc/IccFileHandler;)V
+
+    iput-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
+
     .line 194
     new-instance v0, Lcom/android/internal/telephony/uicc/VoiceMailConstants;
 
@@ -3439,22 +3447,21 @@
 
     const/4 v4, 0x1
 
-    .line 1168
     sparse-switch p1, :sswitch_data_0
 
-    .line 1207
     iget-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mAdnCache:Lcom/android/internal/telephony/uicc/AdnRecordCache;
 
     invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/AdnRecordCache;->reset()V
 
-    .line 1208
+    iget-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
+
+    invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;->reset()V
+
     invoke-virtual {p0}, Lcom/android/internal/telephony/uicc/SIMRecords;->fetchSimRecords()V
 
-    .line 1211
     :goto_0
     return-void
 
-    .line 1170
     :sswitch_0
     iget v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mRecordsToLoad:I
 
@@ -8656,21 +8663,20 @@
 
     iput-object v2, v0, Landroid/os/AsyncResult;->exception:Ljava/lang/Throwable;
 
-    .line 363
     invoke-virtual {p3}, Landroid/os/Message;->sendToTarget()V
 
-    .line 389
+    const-string v1, "gsm.apn.sim.operator.numeric"
+
+    invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/uicc/SIMRecords;->setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+
     :goto_0
     return-void
 
-    .line 367
     :cond_0
     iput-object p2, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mNewVoiceMailNum:Ljava/lang/String;
 
-    .line 368
     iput-object p1, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mNewVoiceMailTag:Ljava/lang/String;
 
-    .line 370
     new-instance v1, Lcom/android/internal/telephony/uicc/AdnRecord;
 
     iget-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mNewVoiceMailTag:Ljava/lang/String;
@@ -9102,6 +9108,42 @@
     move-result-object v0
 
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method private setSystemProperty(Ljava/lang/String;Ljava/lang/String;)V
+    .locals 2
+    .param p1, "key"    # Ljava/lang/String;
+    .param p2, "val"    # Ljava/lang/String;
+
+    .prologue
+    invoke-static {}, Lmiui/telephony/TelephonyManagerEx;->getDefault()Lmiui/telephony/TelephonyManagerEx;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1, p1, p2}, Lmiui/telephony/TelephonyManagerEx;->setTelephonyProperty(ILjava/lang/String;Ljava/lang/String;)V
+
+    return-void
+.end method
+
+.method private getSystemProperty(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    .locals 2
+    .param p1, "key"    # Ljava/lang/String;
+    .param p2, "def"    # Ljava/lang/String;
+
+    .prologue
+    invoke-static {}, Lmiui/telephony/TelephonyManagerEx;->getDefault()Lmiui/telephony/TelephonyManagerEx;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1, p1, p2}, Lmiui/telephony/TelephonyManagerEx;->getTelephonyProperty(ILjava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 

@@ -2288,6 +2288,7 @@
 
     move-result-object v29
 
+    :cond_miui_0
     move v6, v5
 
     .line 4471

@@ -247,6 +247,9 @@
 .method public abstract lockNow(Landroid/os/Bundle;)V
 .end method
 
+.method public abstract notifyBackLidSwitchChanged(JZ)V
+.end method
+
 .method public abstract notifyLidSwitchChanged(JZ)V
 .end method
 
