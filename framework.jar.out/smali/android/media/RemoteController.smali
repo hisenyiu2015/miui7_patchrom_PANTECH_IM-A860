@@ -1858,13 +1858,10 @@
 
     const/4 v1, 0x1
 
-    .line 407
-    if-nez p1, :cond_0
+    if-eqz p1, :cond_0
 
-    if-eq p1, v1, :cond_1
+    if-eq p1, v1, :cond_0
 
-    .line 408
-    :cond_0
     new-instance v0, Ljava/lang/IllegalArgumentException;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1890,10 +1887,10 @@
     throw v0
 
     .line 410
-    :cond_1
+    :cond_0
     iget-boolean v2, p0, Landroid/media/RemoteController;->mIsRegistered:Z
 
-    if-nez v2, :cond_2
+    if-nez v2, :cond_1
 
     .line 411
     const-string v1, "RemoteController"
@@ -1907,16 +1904,16 @@
     return v0
 
     .line 414
-    :cond_2
+    :cond_1
     iget-object v2, p0, Landroid/media/RemoteController;->mAudioManager:Landroid/media/AudioManager;
 
     iget-object v3, p0, Landroid/media/RemoteController;->mRcd:Landroid/media/RemoteController$RcDisplay;
 
-    if-ne v1, p1, :cond_3
+    if-ne v1, p1, :cond_2
 
     move v0, v1
 
-    :cond_3
+    :cond_2
     invoke-virtual {v2, v3, v0}, Landroid/media/AudioManager;->remoteControlDisplayWantsPlaybackPositionSync(Landroid/media/IRemoteControlDisplay;Z)V
 
     move v0, v1
