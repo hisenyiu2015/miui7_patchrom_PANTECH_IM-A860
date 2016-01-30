@@ -1361,8 +1361,6 @@
 
     iget v2, p0, Lcom/android/internal/telephony/gsm/SmsMessage;->mMti:I
 
-    iput v2, p0, Lcom/android/internal/telephony/gsm/SmsMessage;->mEncodingType:I
-
     packed-switch v2, :pswitch_data_0
 
     new-instance v2, Ljava/lang/RuntimeException;
@@ -1887,6 +1885,8 @@
     move-result-object v8
 
     iput-object v8, p0, Lcom/android/internal/telephony/gsm/SmsMessage;->mUserDataHeader:Lcom/android/internal/telephony/SmsHeader;
+
+    iput v2, p0, Lcom/android/internal/telephony/gsm/SmsMessage;->mEncodingType:I
 
     .line 1183
     if-eqz p2, :cond_17
