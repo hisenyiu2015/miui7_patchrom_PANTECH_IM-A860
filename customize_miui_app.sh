@@ -41,3 +41,7 @@ if [ $1 = "miuisystem" ];then
 	cp $1/a860.xml $2/assets/device_features/
 fi
 
+if [ $1 = "SecurityCenter" ];then
+    applyPatch $1 $2
+fi
+
