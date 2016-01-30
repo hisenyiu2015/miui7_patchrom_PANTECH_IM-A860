@@ -32,3 +32,7 @@ function changeID () {
     cd -
 }
 
+if [ $1 = "TeleService" ];then
+    changeID $1
+fi
+
