@@ -45,3 +45,7 @@ if [ $1 = "SecurityCenter" ];then
     applyPatch $1 $2
 fi
 
+if [ $1 = "DeskClock" ];then
+    changeID $1
+fi
+
