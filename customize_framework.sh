@@ -21,3 +21,9 @@ function applyPatch () {
       done
 }
 
+if [ $2 = "$BUILD_OUT/framework" ]
+then
+	#fix Miui Editor
+    cp -rf ../android/Editor/* $BUILD_OUT/framework/smali/android/widget/
+fi
+
