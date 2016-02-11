@@ -1,0 +1,23 @@
+From 94005a56e242e255f6b3a870b4608491f74fd2cf Mon Sep 17 00:00:00 2001
+From: JellyCandy <97309464@qq.com>
+Date: Sat, 26 Sep 2015 17:55:37 +0800
+Subject: [PATCH] add menu key
+
+---
+ .../smali/com/android/systemui/statusbar/phone/NavigationBarView.smali  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/MiuiSystemUI/smali/com/android/systemui/statusbar/phone/NavigationBarView.smali
++++ b/MiuiSystemUI/smali/com/android/systemui/statusbar/phone/NavigationBarView.smali
+@@ -2121,7 +2121,7 @@
+     goto :goto_0
+ 
+     :cond_1
+-    const/4 v0, 0x4
++    const/4 v0, 0x0
+ 
+     goto :goto_1
+ .end method
+-- 
+1.9.1
+
