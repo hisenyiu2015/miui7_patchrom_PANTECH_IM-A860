@@ -27,3 +27,8 @@ then
     cp -rf ../android/Editor/* $BUILD_OUT/framework/smali/android/widget/
 fi
 
+if [ $2 = "$BUILD_OUT/services" ]
+then
+    applyPatch "overlay/services"
+fi
+
