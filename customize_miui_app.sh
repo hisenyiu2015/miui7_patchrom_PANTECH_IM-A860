@@ -34,6 +34,8 @@ function changeID () {
 
 if [ $1 = "TeleService" ];then
     changeID $1
+    applyPatch $1 $2
+    $XMLMERGYTOOL $1/res/values $2/res/values
 fi
 
 if [ $1 = "miuisystem" ];then
