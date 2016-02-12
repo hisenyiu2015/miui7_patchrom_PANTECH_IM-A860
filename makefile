@@ -46,6 +46,8 @@ local-after-zip:= local-put-to-phone
 include $(PORT_BUILD)/porting.mk
 
 local-pre-zip-misc:
+		#remove stockrom fonts, use miui fonts
+		rm -rf $(ZIP_DIR)/system/fonts/*
 		#copy files
 		cp other/boot.img $(ZIP_DIR)/boot.img
 		cp -a -rf other/system/* $(ZIP_DIR)/system/
