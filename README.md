@@ -43,5 +43,8 @@ And then look at out/fullota.zip,it is the MIUI ROM
 Now you can get your own miui ROM, enjoy it!
 
 感谢JellyCandy一直以来带我玩miui
+
 感谢x-s， wuxianlin的开源代码
+
 感谢MIUI patchrom 开源项目
+
