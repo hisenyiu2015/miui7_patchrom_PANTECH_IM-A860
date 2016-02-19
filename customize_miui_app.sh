@@ -43,6 +43,7 @@ fi
 if [ $1 = "miuisystem" ];then
         sed -i '/  - 16/a\  - 17' $2/apktool.yml
 	cp $1/a860.xml $2/assets/device_features/
+    applyPatch $1 $2
 fi
 
 if [ $1 = "SecurityCenter" ];then
