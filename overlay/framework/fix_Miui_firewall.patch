@@ -1,0 +1,25 @@
+From d5465cc761ef0bc169c234c0c996a0a1ddb70d20 Mon Sep 17 00:00:00 2001
+From: garyyiu2015 <garyyiu2015@gmail.com>
+Date: Sat, 5 Mar 2016 00:31:19 +0800
+Subject: [PATCH] fix_Miui_firewall
+
+---
+ framework/smali/android/net/LocalSocketImpl.smali | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- a/framework/smali/android/net/LocalSocketImpl.smali
++++ b/framework/smali/android/net/LocalSocketImpl.smali
+@@ -362,6 +362,10 @@
+ 
+     iput-object v0, p1, Landroid/net/LocalSocketImpl;->fd:Ljava/io/FileDescriptor;
+ 
++    const/4 v0, 0x1
++
++    iput-boolean v0, p1, Landroid/net/LocalSocketImpl;->mFdCreatedInternally:Z
++
+     return-void
+ .end method
+ 
+-- 
+1.9.1
+
