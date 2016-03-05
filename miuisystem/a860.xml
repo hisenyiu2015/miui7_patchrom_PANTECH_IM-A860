@@ -10,4 +10,6 @@
     <string name="vendor">qcom</string>
     <!--whether the device is port by patchrom-->
     <bool name="is_patchrom">true</bool>
+    <!--whether the device is pad-->
+    <bool name="is_pad">false</bool>
 </features>
