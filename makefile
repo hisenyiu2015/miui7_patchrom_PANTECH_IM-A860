@@ -28,8 +28,8 @@ local-miui-modified-apps := TeleService miuisystem MiuiHome SecurityCenter \
 # Default configrations are HDPI for ics branch and XHDPI for jellybean branch
 local-density := XXHDPI
 
-# All apps need to be removed from original ZIP file
-#local-remove-apps   := 
+# The certificate for release version
+local-certificate-dir := security
 
 include phoneapps.mk
 
