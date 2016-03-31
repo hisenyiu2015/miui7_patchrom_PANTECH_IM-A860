@@ -4976,6 +4976,14 @@
     .end local v2    # "stream":Ljava/io/FileInputStream;
     :cond_0
     :goto_0
+    iget-object v3, p0, Lcom/android/server/AppWidgetServiceImpl;->mContext:Landroid/content/Context;
+
+    iget-object v4, p0, Lcom/android/server/AppWidgetServiceImpl;->mInstalledProviders:Ljava/util/ArrayList;
+
+    iget v5, p0, Lcom/android/server/AppWidgetServiceImpl;->mUserId:I
+
+    invoke-static {v3, v4, v5}, Lcom/android/server/AppWidgetServiceImplInjector;->updateWidgetPackagesLocked(Landroid/content/Context;Ljava/util/List;I)V
+
     return-void
 
     .line 1624
@@ -8173,7 +8181,17 @@
     if-nez v3, :cond_0
 
     .line 1650
+    return-void
+
     :goto_0
+    iget-object v3, p0, Lcom/android/server/AppWidgetServiceImpl;->mContext:Landroid/content/Context;
+
+    iget-object v4, p0, Lcom/android/server/AppWidgetServiceImpl;->mInstalledProviders:Ljava/util/ArrayList;
+
+    iget v5, p0, Lcom/android/server/AppWidgetServiceImpl;->mUserId:I
+
+    invoke-static {v3, v4, v5}, Lcom/android/server/AppWidgetServiceImplInjector;->updateWidgetPackagesLocked(Landroid/content/Context;Ljava/util/List;I)V
+
     return-void
 
     .line 1637
