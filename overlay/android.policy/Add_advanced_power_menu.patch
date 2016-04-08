@@ -1,0 +1,102 @@
+From a79cbc8dddfb7dad206f2a2a7dfba9107d68c4bd Mon Sep 17 00:00:00 2001
+From: garyyiu2015 <garyyiu2015@gmail.com>
+Date: Thu, 7 Apr 2016 23:56:30 +0800
+Subject: [PATCH] Add advanced power menu
+
+---
+ .../internal/policy/impl/MiuiGlobalActions$1.smali | 68 +++++++++++++++++++++-
+ 1 file changed, 66 insertions(+), 2 deletions(-)
+
+--- a/android.policy/smali/com/android/internal/policy/impl/MiuiGlobalActions$1.smali
++++ b/android.policy/smali/com/android/internal/policy/impl/MiuiGlobalActions$1.smali
+@@ -114,13 +114,77 @@
+     goto :goto_0
+ 
+     :cond_3
++    const-string v0, "recovery"
++
++    invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
++
++    move-result v0
++
++    if-eqz v0, :cond_gary
++
++    :try_start_gary
++    # invokes: Lcom/android/internal/policy/impl/MiuiGlobalActions;->getPowerManager()Landroid/os/IPowerManager;
++    invoke-static {}, Lcom/android/internal/policy/impl/MiuiGlobalActions;->access$100()Landroid/os/IPowerManager;
++
++    move-result-object v0
++
++    const/4 v1, 0x0
++
++    const-string v2, "recovery"
++
++    const/4 v3, 0x0
++
++    invoke-interface {v0, v1, v2, v3}, Landroid/os/IPowerManager;->reboot(ZLjava/lang/String;Z)V
++    :try_end_gary
++    .catch Landroid/os/RemoteException; {:try_start_gary .. :try_end_gary} :catch_gary
++
++    goto :goto_0
++
++    :catch_gary
++    move-exception v0
++
++    goto :goto_0
++
++    :cond_gary
++    const-string v0, "bootloader"
++
++    invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
++
++    move-result v0
++
++    if-eqz v0, :cond_gary_1
++
++    :try_start_gary_1
++    # invokes: Lcom/android/internal/policy/impl/MiuiGlobalActions;->getPowerManager()Landroid/os/IPowerManager;
++    invoke-static {}, Lcom/android/internal/policy/impl/MiuiGlobalActions;->access$100()Landroid/os/IPowerManager;
++
++    move-result-object v0
++
++    const/4 v1, 0x0
++
++    const-string v2, "bootloader"
++
++    const/4 v3, 0x0
++
++    invoke-interface {v0, v1, v2, v3}, Landroid/os/IPowerManager;->reboot(ZLjava/lang/String;Z)V
++    :try_end_gary_1
++    .catch Landroid/os/RemoteException; {:try_start_gary_1 .. :try_end_gary_1} :catch_gary_1
++
++    goto :goto_0
++
++    :catch_gary_1
++    move-exception v0
++
++    goto :goto_0
++
++    :cond_gary_1
+     const-string v0, "shutdown"
+ 
+     invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+ 
+     move-result v0
+ 
+-    if-eqz v0, :cond_4
++    if-eqz v0, :cond_gary_2
+ 
+     new-instance v0, Lcom/android/internal/policy/impl/MiuiGlobalActions$1$1;
+ 
+@@ -132,7 +196,7 @@
+ 
+     goto :goto_0
+ 
+-    :cond_4
++    :cond_gary_2
+     const-string v0, "dismiss"
+ 
+     invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+-- 
+1.9.1
+
