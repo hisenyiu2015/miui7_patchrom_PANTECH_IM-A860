@@ -43,8 +43,6 @@ def FlashDolby(info):
 def FullOTA_InstallEnd(info):
     AddAssertions(info)
     WritePolicyConfig(info)
-
-
     InstallDolby(info)
     FlashDolby(info)
 def IncrementalOTA_InstallEnd(info):
