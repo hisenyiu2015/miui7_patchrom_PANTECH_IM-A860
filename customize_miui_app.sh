@@ -49,6 +49,8 @@ fi
 if [ $1 = "SecurityCenter" ];then
     applyPatch $1 $2
     sed -i '/  - 16/a\  - 18' $2/apktool.yml
+	#Fix MIUI SecurityCenter icon dislocation
+	sed -i '/- 18/a\sdkInfo:\n  minSdkVersion: '\''19'\''\n  targetSdkVersion: '\''23'\''' $2/apktool.yml
 fi
 
 if [ $1 = "DeskClock" ];then
