@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="@string/app_name"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="显示">
+        <PreferenceScreen android:title="MIUI布局切换" android:summary="切换状态栏、分辨率、桌面布局等功能">
+            <intent android:targetPackage="com.makelove.settings" android:action="android.intent.action.MAIN" android:targetClass="com.ficeto.customsettings.SettingsActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="屏幕助手" android:summary="管理屏幕悬浮小助手，方便单手操作的用户">
+            <intent android:targetPackage="com.makelove.settings" android:action="android.intent.action.MAIN" android:targetClass="com.deskangel.kblight.kbLight" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="护目镜" android:summary="夜间降低亮度，保护眼睛">
+            <intent android:targetPackage="cn.mixiaoxiao.myappscreenmask" android:action="android.intent.action.MAIN" android:targetClass="cn.mixiaoxiao.myappscreenmask.MainActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="功能">
+        <PreferenceScreen android:title="Xposed 框架管理" android:summary="进入Xposed框架管理及相关模块设置">
+            <intent android:targetPackage="com.makelove.settings" android:action="android.intent.action.MAIN" android:targetClass="com.wazls.home.SActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="CPU设置" android:summary="调整手机CPU值">
+            <intent android:targetPackage="com.makelove.settings" android:action="android.intent.action.MAIN" android:targetClass="com.cpuset.ActivitySeting" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="程序冻结" android:summary="冻结用户应用和系统应用">
+            <intent android:targetPackage="com.smartapp.appfreezer" android:action="android.intent.action.MAIN" android:targetClass="com.smartapp.appfreezer.MainActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="来电闪光" android:summary="支持来电、短信、通知闪光">
+            <intent android:targetPackage="com.holiestar.flashoncall" android:action="android.intent.action.MAIN" android:targetClass="com.holiestar.flashoncall.MainActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="WIFI密码查看" android:summary="查看已连接的WIFI热点密码">
+            <intent android:targetPackage="wilk.wifi.pwd" android:action="android.intent.action.MAIN" android:targetClass="wilk.wifi.pwd.ui.MainActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="测试模式" android:summary="进入测试模式">
+            <intent android:targetPackage="com.android.settings" android:action="android.intent.action.MAIN" android:targetClass="com.android.settings.TestingSettings" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="声音">
+        <PreferenceScreen android:title="蝰蛇音效" android:summary="进入蝰蛇音效设置">
+            <intent android:targetPackage="com.vipercn.viper4android_v2" android:action="android.intent.action.MAIN" android:targetClass="com.vipercn.viper4android_v2.activity.ViPER4Android" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="杜比音效" android:summary="进入杜比音效设置">
+            <intent android:targetPackage="com.atmos.daxappUI" android:action="android.intent.action.MAIN" android:targetClass="com.atmos.daxappUI.MainActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="关于">
+        <PreferenceScreen android:title="Modified by garyyiu2015" android:key="version">
+            <intent android:action="android.intent.action.VIEW" android:data="http://bbs.sonyue.com/thread-114078-1-1.html" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="支付宝捐赠" android:summary="点击通过支付宝客户端捐赠给我">
+            <intent android:action="android.intent.action.VIEW" android:data="https://qr.alipay.com/ap9veuwlucxdusuw4b" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,16 @@
+version: 2.0.0-RC4
+apkFileName: MiuiAdvancedSettings.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+  - 16
+sdkInfo:
+  minSdkVersion: '19'
+  targetSdkVersion: '21'
+packageInfo:
+  forced-package-id: '127'
+versionInfo:
+  versionCode: '1'
+  versionName: MIUI 7
+compressionType: false

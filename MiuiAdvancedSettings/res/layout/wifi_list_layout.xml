@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/button_bg" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="1.0dip">
+        <ImageView android:id="@id/imageView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="1.0dip" android:layout_marginRight="5.0dip" android:layout_alignBottom="@id/pskTextView" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:layout_alignParentStart="true" />
+        <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/ssidTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:layout_toRightOf="@id/imageView" android:layout_alignParentTop="true" android:layout_toEndOf="@id/imageView" />
+        <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/pskTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:layout_toRightOf="@id/imageView" android:layout_below="@id/ssidTextView" android:layout_toEndOf="@id/imageView" />
+    </RelativeLayout>
+</LinearLayout>

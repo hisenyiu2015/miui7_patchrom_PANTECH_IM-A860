@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen android:title="小米悬浮球" android:summary="小米官方的悬浮球">
+        <intent android:targetPackage="com.miui.touchassistant" android:action="android.intent.action.MAIN" android:targetClass="com.miui.touchassistant.MainActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="屏幕助手" android:summary="中兴系统的屏幕助手">
+        <intent android:targetPackage="com.android.mipop" android:action="android.intent.action.MAIN" android:targetClass="com.android.mipop.MIPopActivity" />
+    </PreferenceScreen>
+</PreferenceScreen>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen android:title="Xposed 框架" android:summary="进入Xposed框架设置">
+        <intent android:targetPackage="de.robv.android.xposed.installer" android:action="android.intent.action.MAIN" android:targetClass="de.robv.android.xposed.installer.WelcomeActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="沉浸式状态栏" android:summary="沉浸式状态栏设置">
+        <intent android:targetPackage="com.kqstone.immersedstatusbar" android:action="android.intent.action.MAIN" android:targetClass="com.kqstone.immersedstatusbar.settings.SettingsActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="状态栏调整" android:summary="全面DIY系统状态栏">
+        <intent android:targetPackage="com.hartec.miuistatusbar" android:action="android.intent.action.MAIN" android:targetClass="com.hartec.miuistatusbar.MainSettingsActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="窗口多任务" android:summary="实现程序窗口化">
+        <intent android:targetPackage="com.skyolin.helper" android:action="android.intent.action.MAIN" android:targetClass="com.skyolin.helper.MainPreference" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="抢红包" android:summary="抢红包设置(支持QQ和微信)">
+        <intent android:targetPackage="com.wuxianlin.luckymoney" android:action="android.intent.action.MAIN" android:targetClass="com.wuxianlin.luckymoney.SettingsActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="QQ消息防撤回" android:summary="QQ消息防撤回设置">
+        <intent android:targetPackage="com.fkzhang.qqunrecalled" android:action="android.intent.action.MAIN" android:targetClass="com.fkzhang.qqunrecalled.MainActivity-Alias" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="微信消息防撤回" android:summary="微信消息防撤回设置">
+        <intent android:targetPackage="com.fkzhang.wechatunrecalled" android:action="android.intent.action.MAIN" android:targetClass="com.fkzhang.wechatunrecalled.MainActivity-Alias" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="阻止运行" android:summary="阻止运行设置">
+        <intent android:targetPackage="me.piebridge.forcestopgb" android:action="android.intent.action.MAIN" android:targetClass="me.piebridge.prevent.ui.PreventActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="绿色守护" android:summary="绿色守护设置">
+        <intent android:targetPackage="com.oasisfeng.greenify" android:action="android.intent.action.MAIN" android:targetClass="com.oasisfeng.greenify.GreenifyActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="文本自定义" android:summary="文本自定义设置">
+        <intent android:targetPackage="liubaoyua.customtext" android:action="android.intent.action.MAIN" android:targetClass="liubaoyua.customtext.ui.AppListActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="型号伪装" android:summary="型号伪装设置">
+        <intent android:targetPackage="com.sollyu.xposed.hook.model" android:action="android.intent.action.MAIN" android:targetClass="com.sollyu.xposed.hook.model.LauncherActivity" />
+    </PreferenceScreen>
+</PreferenceScreen>

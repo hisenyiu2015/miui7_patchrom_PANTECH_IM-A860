@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="电量高级设置"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
+    <PreferenceCategory android:title="状态栏电池条属性设置" android:key="general_settings">
+        <ListPreference android:entries="@array/batteryline_height_list" android:title="电量条高度" android:key="batteryline_height_list" android:summary="正常" android:defaultValue="3" android:entryValues="@array/batteryline_height_list_value" />
+        <ListPreference android:entries="@array/batteryline_color_list" android:title="电量条颜色" android:key="batteryline_color_list" android:defaultValue="0" android:entryValues="@array/batteryline_color_list_value" />
+    </PreferenceCategory>
+</PreferenceScreen>
