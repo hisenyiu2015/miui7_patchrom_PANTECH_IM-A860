@@ -48,3 +48,4 @@ Now you can get your own miui ROM, enjoy it!
 
 感谢MIUI patchrom 开源项目
 
+这是我最后一次更新4.4.x的miu7了，micode已经停止更新kitkat系列了。基友们，miui8见。
