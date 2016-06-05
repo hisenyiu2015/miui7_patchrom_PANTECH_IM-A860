@@ -6,7 +6,6 @@ private-phone-apps := Bluetooth \
     CellBroadcastReceiver \
     HTMLViewer \
     KeyChain \
-    LatinIME \
     Nfc \
     PacProcessor \
     UserDictionaryProvider \
