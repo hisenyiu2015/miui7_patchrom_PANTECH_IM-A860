@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen android:title="摇晃综合设置"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
-    <PreferenceCategory android:title="摇晃设置" android:key="general_settings">
-        <ListPreference android:entries="@array/shake_list" android:title="自定义摇晃手机行为" android:key="shake_list" android:defaultValue="0" android:entryValues="@array/shake_list_value" />
-        <PreferenceScreen android:title="摇动灵敏度设置" />
-    </PreferenceCategory>
-</PreferenceScreen>

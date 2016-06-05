@@ -72,8 +72,3 @@ fi
 if [ $1 = "ThemeManager" ];then
     applyPatch $1 $2
 fi
-
-if [ $1 = "Settings" ];then
-    sed -i '/  - 17/a\  - 18' $2/apktool.yml
-    applyPatch $1 $2
-fi

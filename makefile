@@ -22,7 +22,7 @@ local-miui-removed-priv-apps :=
 
 local-miui-modified-apps := TeleService miuisystem MiuiHome SecurityCenter \
 			DeskClock DownloadProvider MiuiSystemUI \
-			XiaomiServiceFramework ThemeManager Settings
+			XiaomiServiceFramework ThemeManager
 
 # Config density for co-developers to use the aaps with HDPI or XHDPI resource,
 # Default configrations are HDPI for ics branch and XHDPI for jellybean branch
@@ -51,7 +51,6 @@ local-pre-zip-misc:
 		#copy files
 		cp other/boot.img $(ZIP_DIR)/boot.img
 		cp -a -rf other/system/* $(ZIP_DIR)/system/
-		cp -a -rf other/data/* $(ZIP_DIR)/data/
 		echo "# 0-->ON，1-->OFF" >> $(ZIP_DIR)/system/build.prop
 		echo "qemu.hw.mainkeys=0" >> $(ZIP_DIR)/system/build.prop
 		#use stockrom binaries, fix wsm/xposed install
@@ -61,6 +60,3 @@ local-pre-zip-misc:
 		cp -rf stockrom/system/bin/debuggerd $(ZIP_DIR)/system/bin/debuggerd
 		rm -rf $(ZIP_DIR)/system/bin/dexopt_vendor
 		cp -rf stockrom/system/bin/dexopt $(ZIP_DIR)/system/bin/dexopt
-		#DATA APPLIST
-		cat applist >> $(ZIP_DIR)/data/miui/cust/cn/customized_applist
-		cat applist >> $(ZIP_DIR)/data/miui/cust/cn/ota_customized_applist

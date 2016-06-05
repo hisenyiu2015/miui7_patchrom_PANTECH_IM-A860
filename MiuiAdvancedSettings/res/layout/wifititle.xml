@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textAppearance="?android:textAppearanceSmall" android:textSize="16.0sp" android:textStyle="bold" android:textColor="#ff555555" android:gravity="left|center" android:id="@android:id/title" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="40.0dip" android:layout_marginTop="3.0dip" android:text="@string/wifi_show" />
-    <Button android:gravity="center" android:background="@drawable/chose_back_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="0.0dip" android:layout_marginTop="5.0dip" android:layout_alignParentLeft="true" android:onClick="onExitButtonClick" />
-</FrameLayout>
